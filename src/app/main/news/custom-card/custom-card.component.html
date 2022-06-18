@@ -1,0 +1,19 @@
+<div class="card d-flex" style="width: 100%" (click)="showModal()">
+    <div class="custom-card-body">
+        <div class="mr-4"><img width="64" height="64" [src]="cardInfo.imgPath"></div>
+        <div class="">
+            <p class="card-text">{{cardInfo.text}}</p>
+        </div>
+    </div>
+</div>
+
+<nz-modal 
+    [(nzVisible)]="isVisible" 
+    [nzTitle]="modalTitle" 
+    (nzOnCancel)="handleCancel()" 
+    (nzOnOk)="handleOk()"
+    nzWidth="1000px">
+      <ng-container *nzModalContent>
+            <div></div>
+      </ng-container>
+</nz-modal>

@@ -1,0 +1,129 @@
+<h4>Danh sách ảnh</h4>
+<form class="form" [formGroup]="imgSearchingForm">
+    <div class="row">
+      <div class="col-12">
+          <div class="form-group d-flex">
+            <label class="" style="width: 20%">Tìm id</label>
+            <input nzInput type="text" class="form-control" style="width: 80%" formControlName="id" (blur)="getImageList()"/>
+          </div>
+        </div>
+
+        <div class="col-12">
+            <div class="form-group d-flex">
+              <label style="width: 20%">Tìm tên</label>
+              <input nzInput type="text" class="form-control" style="width: 80%" formControlName="name" (blur)="getImageList()"/>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="form-group d-flex">
+              <label style="width: 20%">Album</label>
+              <nz-tree-select
+                [nzExpandedKeys]="expandKeys"
+                [nzNodes]="nodes"
+                nzShowSearch
+                nzPlaceHolder="Please select"
+                formControlName="albumId"
+                (ngModelChange)="onChange($event)"
+                style="width: 80%"
+              ></nz-tree-select>
+            </div>
+          </div>
+        </div>
+        </form>
+        <app-upload-img></app-upload-img>
+
+        <button
+        nz-button
+        nzType="primary"
+        [disabled]="setOfCheckedId.size === 0"
+        [nzLoading]="loading"
+        (click)="sendRequest()"
+        style="float:right"
+      >
+        Xóa ảnh <span data-feather="trash-2"></span>
+      </button>
+        <nz-table
+      #rowSelectionTable
+      nzShowPagination
+      nzShowSizeChanger
+      nzSize="small"
+      [nzData]="listOfData"
+      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+    >
+      <thead>
+        <tr>
+          <th style="max-width: 40px;">STT</th>
+          <th style="max-width: 100px;">ID</th>
+          <th style="max-width: 160px;">Tên ảnh</th>
+          <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data; let i = index" (click)="clickOnRow(i)" [class.active]="i == HighlightRow">
+          <td style="max-width: 40px;">{{ i+1 }}</td>
+          <td style="max-width: 100px;">{{ data.id }}</td>
+          <td style="max-width: 160px;" >{{ data.name }}</td>
+          <td
+            [nzChecked]="setOfCheckedId.has(data.id)"
+            [nzDisabled]="data.disabled"
+            (nzCheckedChange)="onItemChecked(data.id, $event)"
+          ></td>
+        </tr>
+      </tbody>
+    </nz-table>
+    <hr>
+
+    <!-- choose title image -->
+    <div class="row">
+      <div class="col-5" style="padding: 0">
+        <div style="width: 100%; height: 200px; border: 1px solid black;">
+          <img [src]="clickedImagePath.substr(clickedImagePath.indexOf('assets'))"  height="200" *ngIf="clickedImagePath"/>
+        </div>
+      </div>
+      <div class="col-2 d-flex" style="justify-content: center;" >
+        <div style="align-self: center;">
+        <button class="form-control" (click)="addTitleImage()">></button>
+        <button class="form-control" (click)="removeTitleImage()"><</button>
+        </div>
+      </div>
+      <div class="col-5" style="padding: 0">
+        <div style="width: 100%; height: 200px; border: 1px solid black;">
+          <img [src]="titleImage.substr(titleImage.indexOf('assets'))"  height="200" *ngIf="titleImage"/>
+        </div>
+      </div>
+
+    </div>
+    <!-- end choose title image -->
+
+    <hr>
+
+    <nz-table
+      #titleImageTable
+      nzShowPagination
+      nzShowSizeChanger
+      nzSize="small"
+      [nzData]=""
+      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+    >
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)">Loại bỏ</th>
+          <th>Tên file</th>
+          <th>Link file</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of titleImageTable.data; let i = index">
+          <td>{{ i+1 }}</td>
+          <td
+            [nzChecked]="setOfCheckedId.has(data.id)"
+            [nzDisabled]="data.disabled"
+            (nzCheckedChange)="onItemChecked(data.id, $event)"
+          ></td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.id }}</td>
+        </tr>
+      </tbody>
+    </nz-table>

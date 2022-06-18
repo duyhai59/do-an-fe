@@ -1,0 +1,182 @@
+<div class="card-body">
+    <form class="form" [formGroup]="editDocForm">
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <div class="form-group" >
+                    <label>Số công văn<span class="validatemsg">(*):</span></label>
+                    <input nz-input placeholder="Số công văn" #addNumDoc id="addNumDoc" class="form-control " type="text" formControlName="numDocEn" />
+                </div> 
+            </div>
+
+            <div class="col-md-6 col-12">
+                <div class="form-group">
+                    <label>Khu vực</label>
+                    <nz-select nzPlaceHolder="Khu vực" id="locationId" class="col-sm-12 form-control" nzShowSearch nzAllowClear formControlName="center">
+                        <nz-option *ngFor="let item of listCenter" nzLabel={{item.name}} nzValue={{item.id}}></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-12">
+                <div class="form-group">
+                    <label for="employee">Tiêu đề<span class="validatemsg">(*):</span></label>
+                    <input nz-input placeholder="Tiêu đề" class="form-control" type="text" formControlName="titleEn" />
+                </div>
+            </div>
+
+            <div class="col-md-6 col-12">
+                <div class="row">
+                    <div class="col-sm-4 col-form-label">
+                        <label>Tính đúng hạn:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <input type="checkbox" formControlName="cvCham"/>
+                            </div>
+                            <div class="col-md-8">
+                                <label class="validatemsg">Công văn chậm</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-12">
+                <div class="form-group">
+                    <label>Lí do chậm:</label>
+                    <input nz-input placeholder="Lí do chậm" class="form-control" type="text" formControlName="lyDoCham" />
+                </div>
+            </div>
+
+            <div class="col-md-12 col-12">
+                <div class="form-group">
+                    <label for="feedbackType">Nội dung</label>
+                    <textarea class="form-control" formControlName="contentEn"></textarea>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-12">
+                <div class="form-group">
+                    <label>Ngày nhận công văn:</label>
+                    <nz-date-picker nzShowTime nzFormat="dd-MM-yyyy HH:mm:ss"
+                    formControlName="createdTime"
+                    class="col-sm-12 form-control"
+                    ></nz-date-picker>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-12">
+                <div class="form-group">
+                    <label>Thời gian áp dụng:</label>
+                    <nz-date-picker nzShowTime nzFormat="dd-MM-yyyy HH:mm:ss"
+                    formControlName="beginPublish"
+                    class="col-sm-12 form-control"
+                    ></nz-date-picker>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-12">
+                <div class="form-group">
+                    <label>Nguồn nhận:</label>
+                    <nz-select nzPlaceHolder="Nguồn nhận" class="col-sm-12 form-control" nzShowSearch nzAllowClear formControlName="cvSource">
+                        <nz-option nzLabel="Email" nzValue="1"></nz-option>
+                        <nz-option nzLabel="Tự động hóa VP" nzValue="2"></nz-option>
+                        <nz-option nzLabel="Bản cứng" nzValue="3"></nz-option>
+                        <nz-option nzLabel="Khác" nzValue="4"></nz-option>
+                    </nz-select>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-12">
+                <div class="form-group" style="margin-bottom: 0;">
+                    <label>Đường dẫn công văn <span class="validatemsg">(*)</span>:</label>
+                    <input  id="uploadDoc" (change)="changeFile($event)" style="display: block;" type="file" formControlName="">
+                    <div class="form-group" style="margin-bottom: 0">
+                        <fieldset id="groupRadio" class="row" style="margin-bottom: 0">
+                            <div class="col-md-6">
+                                <div class="col-md-12 row" style="align-items: center;">
+                                    <input id="currentDoc" (click)="closeInputUpload()" name="groupRadio" type="radio" style="margin-right: 6px;">
+                                    <label style="margin-bottom: 0">Công văn hiện tại</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-12 row" style="align-items: center;">
+                                    <input id="newDoc" (click)="openInputUpload()" name="groupRadio" type="radio" style="margin-right: 6px;">
+                                    <label style="margin-bottom: 0">Công văn mới</label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-12">
+                <div class="row">
+                    <div class="col-sm-4 col-form-label">
+                        <label>Ưu tiên tìm kiếm:</label>
+                    </div>
+                    <div class="col-sm-8">
+                        <input type="checkbox" formControlName="utSearch">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-12">
+                <div class="form-group row">
+                    <div class="col-sm-3 col-form-label">
+                        <label for="feedbackType">Loại CV:</label>
+                    </div>
+                    <div class="col-sm-9 row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input type="checkbox" formControlName="iso"/>
+                                </div>
+                                <div class="col-md-8">
+                                    <label style="margin-bottom: 0">ISO</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <input type="checkbox" formControlName="cvNoiBo"/>
+                                </div>
+                                <div class="col-md-8">
+                                    <label style="margin-bottom: 0">CV nội bộ</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-12 row" style="align-items: center;justify-content: center;">
+            <div class="col-md-6 row">
+                <button nz-button nzType="default" type="submit" (click)="editDocOfficalDispatch()"
+                    class="ant-btn-primary"
+                    style="margin: 0 auto;">Thực hiện
+                </button>
+                <button nz-button nzType="default" type="submit" (click)="clearInfomationInput()"
+                    class="ant-btn-primary"
+                    style="margin: 0 auto;">Xóa thông tin
+                </button>
+                <button nz-button nzType="default" type="submit"
+                    class="ant-btn-primary"
+                    style="margin: 0 auto;">Thoát
+                </button>
+            </div>
+        </div>
+        <div class="note" style="margin-top: 8px;">
+              <h6 class="validatemsg" style="color: red;">Lưu ý: </h6>
+              <p>1.Các trường đánh dấu <span class="validatemsg">(*)</span> là các trường không được để trống</p>
+              <p class="validatemsg">2.ISO: Chọn ISO cho các công văn với nội dung, thông tin cung cấp cho khách hàng 
+                (như khuyến mãi, CSKM, dịch vụ, nghiệp vụ, quy định ...)</p>
+              <p>3.Trường nội dung có đội dài tối đa 4.000 ký tự. Khi soạn tin, để không bị vỡ kết cấu của website thì bạn lưu ý 
+                  không được soạn nội dung có chiều rộng vượt quá chiều rộng của khung soạn thảo</p>
+        </div>
+    </form>
+</div>

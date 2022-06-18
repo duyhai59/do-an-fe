@@ -1,0 +1,187 @@
+<button nz-button nzType="default" (click)=" showModal()" nzShape="circle" nz-tooltip nzTooltipTitle="Thêm mới"
+    nzTooltipPlacement="top" nzTooltipColor="#3399ff" style="margin-right:10px;"><i nz-icon nzType="plus"></i>
+</button>
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+    nzWidth="1000px" nzCentered>
+    <ng-template #modalTitle>
+        THÊM MỚI MENU
+    </ng-template>
+
+    <ng-container *nzModalContent>
+        <section id="multiple-column-form">
+            <div class="row match-height">
+                <div class="col-12">
+                    <core-card-snippet>
+                        <div class="card-body">
+                            <form class="form">
+                                <div class="row">
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <nz-form-label nzRequired>Tên menu</nz-form-label>
+                                            <input nz-input type="text" class="form-control" placeholder="Tên menu">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <nz-form-label nzRequired>Cấp menu</nz-form-label>
+                                            <nz-select nzAllowClear nzPlaceHolder="Nhập tên menu" class="form-control">
+                                                <nz-option nzValue="1" nzLabel="1">
+                                                </nz-option>
+                                                <nz-option nzValue="2" nzLabel="2">
+                                                </nz-option>
+                                                <nz-option nzValue="3" nzLabel="3">
+                                                </nz-option>
+                                            </nz-select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <nz-form-label nzRequired>Menu cấp cha</nz-form-label>
+                                            <nz-tree-select class="form-control" [nzNodes]="nodes"
+                                                [nzExpandedKeys]="expandKeys" nzShowSearch nzPlaceHolder="Please select"
+                                                [(ngModel)]="value" (ngModelChange)="onChange($event)"></nz-tree-select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <nz-form-label nzRequired>Loại menu</nz-form-label>
+                                            <nz-select nzAllowClear nzPlaceHolder="Chọn loại menu" class="form-control">
+                                                <nz-option nzValue="item" nzLabel="Item">
+                                                </nz-option>
+                                                <nz-option nzValue="section" nzLabel="Section">
+                                                </nz-option>
+                                                <nz-option nzValue="collapsible" nzLabel="Collapsible">
+                                                </nz-option>
+                                            </nz-select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <nz-form-label nzRequired>Icon</nz-form-label>
+                                            <select class="form-control" id="customSelect">
+                                                <option value="alert octagon">&#xe81b; alert octagon</option>
+                                                <option value="alert circle">&#xe81c; alert circle</option>
+                                                <option value="activity">&#xe81d; activity</option>
+                                                <option value="alert triangle">&#xe81e; alert triangle</option>
+                                                <option value="icon battery">&#xe834; icon battery</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <nz-form-label nzRequired>Hiển thị</nz-form-label>
+                                            <nz-radio-group class="form-control">
+                                                <label nz-radio nzValue="1">Có</label>
+                                                <label nz-radio nzValue="0">Không</label>
+                                            </nz-radio-group>
+                                        </div>
+                                    </div>
+
+                                    <!-- <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <nz-form-label nzRequired>Loại menu</nz-form-label>
+                                            <input nz-input #password [type]="status ? 'password' : 'text'"
+                                                class="form-control" placeholder="Mật khẩu"
+                                                formControlName="password" />
+                                            <span toggle="#password"
+                                                [ngClass]="status ? 'fa fa-fw fa-eye field-icon toggle-password' : 'fa fa-fw fa-eye-slash field-icon toggle-password'"></span>
+                                            <span class="validatemsg">{{passwordMessage}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <nz-form-label nzRequired>Icon</nz-form-label>
+                                            <input nz-input #email type="email" class="form-control" placeholder="Email"
+                                                formControlName="email" />
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <nz-form-label nzRequired>Hiển thị</nz-form-label>
+
+                                            <nz-select #accountStatus formControlName="accountStatus"
+                                                (ngModelChange)="log($event)" nzAllowClear nzPlaceHolder="Trạng thái"
+                                                class="form-control" [nzNotFoundContent]="notFound">
+                                                <nz-option *ngFor="let option of statusList" [nzValue]="option.value"
+                                                    [nzLabel]="option.label">
+                                                </nz-option>
+                                            </nz-select>
+                                            <span class="validatemsg">{{stateMessage}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <nz-form-label>Số điện thoại</nz-form-label>
+                                            <input nz-input #phone type="text" class="form-control"
+                                                placeholder="Số điện thoại" formControlName="phone"
+                                                (click)="clearPhoneMessage()" />
+                                            <span class="validatemsg">{{phoneMessage}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <nz-form-label>Địa chỉ</nz-form-label>
+                                            <input nz-input #address type="text" class="form-control"
+                                                placeholder="Địa chỉ" formControlName="address"
+                                                (click)="clearAddressMessage()" />
+                                            <span class="validatemsg">{{addressMessage}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <nz-form-label>Giới tính</nz-form-label>
+                                            <select class="form-control" id="basicSelect">
+                                                <option>
+                                                    &#xe81b;
+                                                </option>
+                                                <option>Blade Runner</option>
+                                                <option>Thor Ragnarok</option>
+                                            </select>
+                                            <span class="validatemsg">{{genderMessage}}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <nz-form-label>Giới tính</nz-form-label>
+                                            <nz-radio-group class="form-control" formControlName="gender" #gender>
+                                                <label nz-radio nzValue="1">Nam</label>
+                                                <label nz-radio nzValue="0">Nữ</label>
+                                                <label nz-radio nzValue="5">Nữ</label>
+                                            </nz-radio-group>
+                                            <span class="validatemsg">{{genderMessage}}</span>
+                                        </div>
+
+                                    </div> -->
+
+
+
+
+                                </div>
+                            </form>
+                        </div>
+                        <!-- <ngx-spinner [name]="spinnerName" [type]="spinnerType"></ngx-spinner> -->
+                    </core-card-snippet>
+                </div>
+            </div>
+        </section>
+    </ng-container>
+
+    <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()" rippleEffect>Quay lại</button>
+        <button nz-button type="reset" rippleEffect>Nhập lại</button>
+        <button nz-button nzType="primary" (click)="handleOk()" rippleEffect>Thêm mới</button>
+    </div>
+</nz-modal>

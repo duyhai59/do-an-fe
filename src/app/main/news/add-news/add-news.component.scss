@@ -1,0 +1,30 @@
+@import '@core/scss/angular/libs/select.component.scss';
+.url{
+    font-size: 20px;
+    font-weight: bold;
+    transition: 0.5s;
+ 
+}
+
+.custom-btn {
+    width: 160px;
+}
+
+.ant-collapse-header{
+    display: flex;
+    align-items: center;
+}
+
+.ant-btn-icon-only {
+    width: 45px;
+    height: 45px
+}
+
+.custom-icon{
+    font-size: 20px;
+}
+
+
+
+
+

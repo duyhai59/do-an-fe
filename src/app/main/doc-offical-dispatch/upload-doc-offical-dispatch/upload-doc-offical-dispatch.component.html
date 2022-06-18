@@ -1,0 +1,42 @@
+<div class="card-body" style="padding: 0;">
+    <div class="col-md-12">
+        <form class="form">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>File cần import: </label>
+                    </div>
+                    <div class="col-md-6">
+                        <input style="visibility: hidden;" class="custom-file-input" id="customFile" type="file" class="form-control" (change)="changeFile($event)">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>File mẫu: </label>
+                    </div>
+                    <div class="col-md-6" style="padding-left: 0;">
+                        <a class="point-link" id="download-btn" (click)="downloadSampleDocument()">Download</a>
+                    </div>
+                </div>
+                <div class="row" style="justify-content: center">
+                    <div class="col-md-4 row">
+                        <button nz-button nzType="default" type="submit" (click)="importFile()"
+                            class="ant-btn-primary"
+                            style="margin: 0 auto;">Thực hiện
+                        </button>
+                        <button nz-button nzType="default" type="submit"
+                            class="ant-btn-primary"
+                            style="margin: 0 auto;">Thoát
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-12" style="text-align: center;">
+        <span style="color: red;">Lưu ý : Nội dung nhập trong file excel phải theo đúng hướng dẫn ở sheet "Lưu ý"" trong file mẫu !</span>
+    </div>
+    <!-- <nz-spin [nzSpinning]="isSpinning"></nz-spin>   -->
+</div>

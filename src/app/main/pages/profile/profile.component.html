@@ -1,0 +1,94 @@
+<section id="multiple-column-form">
+    <div class="row match-height">
+      <div class="col-12">
+        <core-card-snippet>
+        <h1 class="card-title">THÔNG TIN USER</h1>
+          <div class="card-body">
+            <form class="form" [formGroup]="profileForm">
+              <div class="row">
+  
+                <div class="col-md-6 col-12">
+                  <div class="form-group">
+                    <label>Login Id<b class="required" style="color: #ff0000"></b></label>
+                    <input
+                      ngModel
+                      type="text"
+                      class="form-control"
+                      formControlName="loginId"
+                      disabled
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 col-12">
+                  <div class="form-group">
+                    <label>Tên<b class="required" style="color: #ff0000"></b></label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      formControlName="name"
+                      disabled
+                    />
+                  </div>
+                </div>
+
+            
+                <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <label>Email <b class="required" style="color: #ff0000"></b></label>
+                      <input
+                        type="text"  
+                        class="form-control" 
+                        formControlName="email"
+                        disabled
+                      />
+                    </div>
+                </div>
+                              
+  
+                <div class="col-md-6 col-12">
+                  <div class="form-group">
+                    <label>Số điện thoại</label>
+                    <input
+                      type="text" 
+                      class="form-control"
+                      formControlName="phoneNumber"
+                      disabled
+                    />
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                  <label for="dropdown">Nhóm quyền<b class="required" style="color: #ff0000"></b></label>
+                  <select 
+                  #role class="form-control"
+                  formControlName="role" disabled> 
+                    <option *ngFor="let r of roleList" [value]="r.id">{{r.name}}</option>
+                  </select>
+                  <span class="validatemsg">{{roleMessage}}</span>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                  
+                    <label>Loại User<b class="required" style="color: #ff0000"></b></label>
+                    <select #type class="form-control" placeholder="Loại tài khoản"
+                      formControlName="accountType" disabled>
+                      <option value="2">Hệ thống</option>
+                    </select>
+                    <span class="validatemsg">{{typeMessage}}</span>
+                  
+                </div>
+  
+                <div class="col-12">
+                  <div class="row" style="justify-content: flex-end;">
+                    <button type="button" (click)="goToChangePassword()" rippleEffect class="btn btn-primary mr-1">Đổi mật khẩu</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+        </core-card-snippet>
+      </div>
+    </div>
+  </section>
+  

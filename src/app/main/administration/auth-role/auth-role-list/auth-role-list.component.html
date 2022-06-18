@@ -1,0 +1,127 @@
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+        <!-- / Basic multiple Column Form section start -->
+        <section id="multiple-column-form">
+            <div class="row match-height">
+                <div class="col-12">
+                    <core-card-snippet>
+                        <h4 class="card-title">QUẢN LÝ QUYỀN NGƯỜI DÙNG</h4>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12 col-12">
+                                    <div class="form-group row">
+                                        <div class="col-md-4 col-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-3 col-form-label">
+                                                    <label for="isdnCondition">Tên hoặc mã quyền</label>
+                                                </div>
+                                                <div class="col-sm-9">
+                                                    <input type="text" id="keyWord" class="form-control" name="keyWord"
+                                                        [(ngModel)]="keyWord" placeholder="Nhập tên hoặc mã quyền"
+                                                        autocomplete="off" 
+                                                        (keyup.enter)="getAllAuthRole()"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-12 row">
+                                            <div class="form-group ml-2">
+                                                <button type="submit" class="btn btn-primary mr-1"
+                                                    (click)="getAllAuthRole()">Tìm kiếm</button>
+                                            </div>
+                                            <div class="form-group ml-2">
+                                                <button type="submit" class="btn btn-primary mr-1"
+                                                    (click)="goAuthRoleAdd()">Thêm mới</button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </core-card-snippet>
+                </div>
+                <div class="col-12">
+                    <core-card-snippet>
+                        <h2 class="card-title">DANH SÁCH QUYỀN NGƯỜI DÙNG</h2>
+                        <div class="card-body">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div style="overflow-y: scroll; height: 850px;">
+
+                                        <table id="priviledge-table" class="table table-bordered tableFixHead">
+                                            <thead class="fixed-header">
+                                                <tr>
+                                                    <th class="text-center">STT</th>
+                                                    <th class="text-center">Tên quyền</th>
+                                                    <th class="text-center">Mã quyền</th>
+                                                    <th class="text-center">Mô tả</th>
+                                                    <!-- <th class="text-center">Trạng thái</th> -->
+                                                    <th class="text-center">Ngày tạo</th>
+                                                    <th class="text-center smallWidth">Hành động</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let role of roleList, index as i">
+                                                    <td class="text-center">{{i+1}}</td>
+                                                    <td> {{role.name}}</td>
+                                                    <td> {{role.roleCode}}</td>
+                                                    <td> {{role.description}}</td>
+                                                    <!-- <td *ngIf="role.status == 0"> Chưa dùng</td>
+                                                    <td *ngIf="role.status == 1"> Đã dùng</td> -->
+                                                    <td> {{role.createdDate | date}}</td>
+                                                    <td>
+                                                        <div class="center">
+                                                            <a class="mr-1" title="Thông tin chi tiết" href="javascript:void(0);" (click)="goDetail(role.id)">
+                                                                <i data-feather="eye"></i></a>
+                                                            <a title="Xóa" href="javascript:void(0);" (click)="deleteRole(role.id)">
+                                                                <i data-feather="trash-2"></i></a>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </core-card-snippet>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>
+
+
+
+<!-- <ng-template #addNewModal let-modal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Thêm mới quyền cho Menu</h4>
+            <button type="button" class="btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            adasdasff
+            <form #formAddNew="ngForm">
+                <div class="row">
+                    <div class="col-md-4 ">Tên quyền</div>
+                    <div class="col-md-6 ">
+
+                        <input type="text" />
+
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="page-button update-button" (click)="submitFormAddNew(formAddNew)">
+                <i class="fa fa-save"></i> Lưu</button>
+        </div>
+    </div>
+</ng-template> -->

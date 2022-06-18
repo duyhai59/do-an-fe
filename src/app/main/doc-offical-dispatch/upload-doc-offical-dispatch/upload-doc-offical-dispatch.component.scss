@@ -1,0 +1,18 @@
+*{
+    font-family: "Segoe UI", Roboto, sans-serif !important;
+}
+a.point-link{
+    color: #0066b3 !important;
+    text-decoration: none;
+}
+form > div > div:nth-child(2) > div.col-md-6 > a.point-link:hover{
+    color: #0066b3 !important;
+    text-decoration: underline !important;
+    cursor: pointer;
+}
+.custom-file-label::after{
+    height: auto;
+}
+.custom-file-label{
+    height: 32px !important;
+}

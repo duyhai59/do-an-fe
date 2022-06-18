@@ -1,0 +1,198 @@
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+        <!-- / Basic multiple Column Form section start -->
+        <section id="multiple-column-form">
+            <div class="row match-height">
+                <div class="col-12">
+                    <core-card-snippet>
+                        <h4 class="card-title">THÊM MỚI QUYỀN</h4>
+                        <div class="card-body">
+                            <form class="form" #formAddNew="ngForm">
+                                <div class="row">
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3 col-form-label">
+                                                <label for="isdn">Tên quyền
+                                                    <b class="red">(*)</b>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="text" id="roleName" class="form-control" name="roleName"
+                                                    [(ngModel)]="roleName" required autocomplete="off"
+                                                    #roleNameTxt="ngModel" />
+                                                <span *ngIf="roleNameTxt.errors?.required && roleNameTxt.touched"
+                                                    class="validate_msg_true">
+                                                    Vui lòng nhập tên quyền</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3 col-form-label">
+                                                <label for="isdn">Mã quyền
+                                                    <b class="red">(*)</b>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="text" id="roleCode" class="form-control" name="roleCode"
+                                                    oninput="this.value = this.value.toUpperCase()"
+                                                    [(ngModel)]="roleCode" required autocomplete="off"
+                                                    #roleCodeTxt="ngModel" />
+                                                <span *ngIf="roleCodeTxt.errors?.required && roleCodeTxt.touched"
+                                                    class="validate_msg_true">
+                                                    Vui lòng nhập mã quyền</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group row">
+                                            <div class="col-sm-3 col-form-label">
+                                                <label for="isdn">Mô tả</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <textarea type="text" id="description" class="form-control"
+                                                    [(ngModel)]="description" name="description"
+                                                    autocomplete="off"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <h6>Lựa chọn quyền theo menu</h6>
+                            <span [innerHTML]="errorMsg"
+                                [class]="errorMsg != '' ? 'validate_msg_true' : 'validate_msg_false' "></span>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div style="overflow-y: scroll; height: 650px;" class="priviledge_table_div">
+                                        <div *ngFor="let item of allMenu, index as i">
+                                            <table id="priviledge-table" class="table table-bordered tableFixHead">
+                                                <thead class="fixed-header" *ngIf=" i == 0">
+                                                    <tr>
+                                                        <th class="col-md-3 text-center">Menu</th>
+                                                        <th class="col-md-1 text-center">Cấp menu</th>
+                                                        <th class="col-md-8 text-center">Quyền theo menu</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="col-md-3">{{item.title}}</td>
+                                                        <td class="col-md-1 text-center">{{item.menuLevel}}</td>
+                                                        <td class="col-md-8">
+                                                            <!-- <div class="row" *ngIf="item.authPrivileges.length == 1">
+                                                                <div class="row ml-4 border-custorm"
+                                                                    *ngFor="let action of item.authPrivileges">
+                                                                    <div
+                                                                        [innerHTML]='action.act != undefined ? action.act : "Null"'>
+                                                                    </div>
+                                                                    <div *ngIf="action.act != undefined"
+                                                                        class="col-md-2 col-sm-2">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            [value]="action.id +','+ action.act +','+ item.menuId"
+                                                                            [attr.id]="'act-checkbox-'+action.id"
+                                                                            class="act-checkbox"
+                                                                            (change)="selectActionForRole($event)" />
+                                                                    </div>
+                                                                </div>
+                                                            </div> -->
+                                                            <div class="row">
+                                                                <div class="row ml-4 mr-4 border-custorm"
+                                                                    *ngFor="let action of item.authPrivileges">
+                                                                    <div
+                                                                        [innerHTML]='action.act != undefined ? action.act : "Null"'>
+                                                                    </div>
+                                                                    <div *ngIf="action.act != undefined"
+                                                                        class="col-md-1 col-sm-1">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            [value]="action.id +','+ action.act +','+ item.menuId"
+                                                                            [attr.id]="'act-checkbox-'+action.id"
+                                                                            class="act-checkbox"
+                                                                            (change)="selectActionForRole($event)" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tbody *ngFor="let subItem of item.children">
+                                                    <tr>
+                                                        <td class="text-left">&nbsp;&nbsp; <b>*</b>
+                                                            {{subItem.title}}
+                                                        </td>
+                                                        <td class="text-center">{{subItem.menuLevel}}</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="row ml-4 mr-4 border-custorm"
+                                                                    *ngFor="let action of subItem.authPrivileges">
+                                                                    <div
+                                                                        [innerHTML]='action.act != undefined ? action.act : "Null"'>
+                                                                    </div>
+                                                                    <div *ngIf="action.act != undefined"
+                                                                        class="col-md-1 col-sm-1">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            [value]="action.id +','+ action.act +','+ item.menuId"
+                                                                            [attr.id]="'act-checkbox-'+action.id"
+                                                                            class="act-checkbox"
+                                                                            (change)="selectActionForRole($event)" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr *ngFor="let subItem2 of subItem.children">
+                                                        <td class="text-left">
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            <b>+</b>{{subItem2.title}}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            {{subItem2.menuLevel}}</td>
+                                                        <td>
+                                                            <div class="row">
+                                                                <div class="row ml-4 mr-4 border-custorm"
+                                                                    *ngFor="let action of subItem2.authPrivileges">
+                                                                    <div
+                                                                        [innerHTML]='action.act != undefined ? action.act : "Null"'>
+                                                                    </div>
+                                                                    <div *ngIf="action.act != undefined"
+                                                                        class="col-md-1 col-sm-1">
+                                                                        <input class="form-check-input" type="checkbox"
+                                                                            [value]="action.id +','+ action.act +','+ item.menuId"
+                                                                            [attr.id]="'act-checkbox-'+action.id"
+                                                                            class="act-checkbox"
+                                                                            (change)="selectActionForRole($event)" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4"></div>
+                                <div class="col-md-4">
+                                    <div class="center">
+                                        <button type="button" class="btn btn-primary mr-2 " (click)="goBack()">Quay
+                                            lại</button>
+                                        <button type="button" class="btn btn-secondary mr-2 " (click)="clearForm()">Nhập
+                                            lại</button>
+                                        <button type="button" class="btn btn-primary mr-2 "
+                                            (click)="submitFormAddNew(formAddNew)">Lưu</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </core-card-snippet>
+                </div>
+
+
+            </div>
+        </section>
+    </div>
+</div>

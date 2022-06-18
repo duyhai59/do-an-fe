@@ -1,0 +1,175 @@
+<!-- <button nz-button nzType="primary" (click)="showModal()" style="margin-right:10px;">Thêm mới</button> -->
+<button nz-button nzType="primary" (click)="showModal()" style="margin-right:10px;" nzShape="round" 
+nzTooltipTitle="Thêm mới" nz-tooltip nzTooltipPlacement="top" nzTooltipColor="#3399ff">
+  <i nz-icon nzType="plus" nzTheme="outline"></i>
+</button>
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+  nzWidth="1000px" nzCentered>
+  <ng-template #modalTitle>THÊM MỚI DANH MỤC</ng-template>
+  <ng-container *nzModalContent style="padding-bottom: 0px!important;">
+    <section id="multiple-column-form">
+      <div class="row match-height">
+        <div class="col-12">
+          <core-card-snippet>
+            <div class="card-body">
+              <form class="form" [formGroup]="formAdd">
+                <div class="row">
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label nzRequired>Trường hợp hiện thị</nz-form-label>
+                      <nz-select #viewsOption formControlName="viewsOption" nzAllowClear
+                        (click)="clearViewsOptionMessage()" nzPlaceHolder="Trường hợp hiện thị" class="form-control"
+                        [nzNotFoundContent]="notFound">
+                        <nz-option *ngFor="let option of typeList" [nzValue]="option.value" [nzLabel]="option.label">
+                        </nz-option>
+                      </nz-select>
+                      <span class="validatemsg">{{viewsOptionMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label nzRequired>Tên chuyên mục</nz-form-label>
+                      <input nz-input #nameCategories type="text" class="form-control" placeholder="Tên chuyên mục"
+                        formControlName="nameCategories" (click)="clearNameCategoriesMessage()" />
+                      <span class="validatemsg">{{nameCategoriesMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label nzRequired>Đường link</nz-form-label>
+                      <input nz-input #link type="text" class="form-control" placeholder="Đường link"
+                        formControlName="link" (click)="clearLinkMessage()" />
+                      <span class="validatemsg">{{linkMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label nzRequired>Chuyên mục cha</nz-form-label>
+                      <!-- <nz-select #parentCategory formControlName="parentCategory" nzAllowClear
+                        (click)="clearParentCategoryMessage()" nzPlaceHolder="Chuyên mục cha" class="form-control"
+                        [nzNotFoundContent]="notFound">
+                        <nz-option *ngFor="let option of parentCategoryList" [nzValue]="option.value"
+                          [nzLabel]="option.label">
+                        </nz-option>
+                      </nz-select> -->
+
+                      <nz-tree-select
+                      class="form-control"
+                      [nzNodes]="nodes"
+                      nzShowSearch
+                      nzShowIcon
+                      nzPlaceHolder="Chuyên mục cha"
+                      formControlName="parentCategory">
+                      </nz-tree-select>
+                      <span class="validatemsg">{{parentCategoryMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label nzRequired>Loại nội dung</nz-form-label>
+                      <nz-select #newsType formControlName="newsType" nzAllowClear nzPlaceHolder="Loại nội dung"
+                        class="form-control" [nzNotFoundContent]="notFound">
+                        <nz-option *ngFor="let option of newsTypeList" [nzValue]="option.value"
+                          [nzLabel]="option.label">
+                        </nz-option>
+                      </nz-select>
+                      <span class="validatemsg">{{newsTypeMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label nzRequired>Cách hiển thị</nz-form-label>
+                      <nz-select #displayView formControlName="displayView" nzAllowClear nzPlaceHolder="Cách hiển thị"
+                        class="form-control" [nzNotFoundContent]="notFound">
+                        <nz-option *ngFor="let option of displayViewList" [nzValue]="option.value"
+                          [nzLabel]="option.label">
+                        </nz-option>
+                      </nz-select>
+                      <span class="validatemsg">{{displayViewMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label>Số bản tin tối đa hiển thị</nz-form-label>
+                      <input nz-input #maxNews type="number" class="form-control" nz-tooltip nzTooltipTrigger="focus"
+                        nzTooltipPlacement="topLeft" nzTooltipTitle="Nhập một số"
+                        placeholder="Số bản tin tối đa hiển thị" formControlName="maxNews" />
+                      <span class="validatemsg">{{maxNewsMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label>Vị trí hiển thị</nz-form-label>
+                      <nz-input-number #displayPosition class="form-control" [nzMin]="1" [nzMax]="10" [nzStep]="1"
+                        style="width: 100%; display: flex;" placeholder="Vị trí hiển thị"
+                        formControlName="displayPosition">
+                      </nz-input-number>
+                      <span class="validatemsg">{{displayPositionMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2 col-12">
+                    <div class="form-group">
+                      <label></label>
+                      <label style="display: flex;" nz-checkbox formControlName="showCategories">Hiển thị chuyên
+                        mục</label>
+                      <span class="validatemsg">{{showCategoriesMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2 col-12">
+                    <div class="form-group">
+                      <label></label>
+                      <label style="display: flex;" nz-checkbox formControlName="showNews">Hiển thị tin</label>
+                      <span class="validatemsg">{{showNewsMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2 col-12">
+                    <div class="form-group">
+                      <label></label>
+                      <label style="display: flex;" nz-checkbox formControlName="showOnHomePage">Hiển thị ở trang
+                        chủ</label>
+                      <span class="validatemsg">{{showOnHomePageMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2 col-12">
+                    <div class="form-group">
+                      <label></label>
+                      <label style="display: flex;" nz-checkbox formControlName="topMenu">Top menu</label>
+                      <span class="validatemsg">{{topMenuMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2 col-12">
+                    <div class="form-group">
+                      <label></label>
+                      <label style="display: flex;" nz-checkbox formControlName="specialCategory">Chuyên mục đặc
+                        biệt</label>
+                      <span class="validatemsg">{{specialCategoryMessage}}</span>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+            <ngx-spinner [name]="spinnerName" [type]="spinnerType"></ngx-spinner>
+          </core-card-snippet>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+  <div *nzModalFooter style="align-content: flex-end;">
+    <button nz-button nzType="default" (click)="handleCancel()" rippleEffect>Quay lại</button>
+    <button nz-button type="reset" rippleEffect (click)="reset()">Nhập lại</button>
+    <button nz-button nzType="primary" (click)="handleOk()" rippleEffect>Thêm mới</button>
+  </div>
+</nz-modal>

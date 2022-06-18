@@ -1,0 +1,11 @@
+<a (click)="showModal()">Lấy danh sách công văn liên quan <span style="color: red;">(Kéo thả để di chuyển sắp xếp bản tin)</span></a>
+    <nz-modal 
+    [(nzVisible)]="isVisible" 
+    nzTitle="Danh sách công văn liên quan" 
+    (nzOnCancel)="handleCancel()" 
+    (nzOnOk)="handleOk()"
+    nzWidth="1000px">
+      <ng-container *nzModalContent>
+            <div></div>
+      </ng-container>
+    </nz-modal>

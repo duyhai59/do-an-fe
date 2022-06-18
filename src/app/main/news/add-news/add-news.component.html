@@ -1,0 +1,248 @@
+<section id="multiple-column-form">
+    <div class="row match-height">
+      <div class="col-12">
+        <core-card-snippet>
+          <h4 class="card-title">THÊM MỚI BẢN TIN</h4>
+          <div class="card-body">
+
+            <nz-steps nzType="navigation" [nzCurrent]="stepIndex" (nzIndexChange)="onIndexChange($event)">
+              <nz-step nzTitle="Thông tin chính" [nzStatus]="0 == stepIndex ? 'process' : 'finish'"></nz-step>
+              <nz-step nzTitle="Nội dung và ảnh" [nzStatus]="1 == stepIndex ? 'process' : 'finish'"></nz-step>
+              <nz-step nzTitle="Các tùy chọn khác" [nzStatus]="2 == stepIndex ? 'process' : 'finish'"></nz-step>
+            </nz-steps>
+            
+            <form class="form" [formGroup]="newsAddingForm">
+              <div class="row step1" *ngIf="stepIndex==0">
+                  <div class="col-md-4 col-12">
+                    <div class="form-group">
+                      <nz-form-label nzRequired>Tiêu đề</nz-form-label>
+                      <input nz-input #title type="text" class="form-control" formControlName="title" placeholder="Nhập tiêu đề"/>
+                      <!-- <span class="validatemsg">{{titleMessage}}</span> -->
+                    </div>
+                  </div>
+
+                <div class="col-md-4 col-12">
+                  <div class="form-group">
+                    <nz-form-label nzRequired>Loại tin</nz-form-label>
+                    <nz-select #newsViewType class="form-control" style="border: none;"
+                      formControlName="newsViewType">
+                      <nz-option nzValue="1" nzLabel="Tin tức" selected></nz-option>
+                      <nz-option nzValue="2" nzLabel="Khuyến mãi"></nz-option>
+                      <nz-option nzValue="3" nzLabel="Dịch vụ"></nz-option>
+                      <nz-option nzValue="4" nzLabel="Thuê bao/Gói cước"></nz-option>
+                    </nz-select>
+                    <!-- <span class="validatemsg">{{newsTypeMessage}}</span> -->
+                  </div>
+                </div>
+  
+                <div class="col-md-4 col-12">
+                  <nz-form-label nzRequired for="newsGroup">Chuyên mục</nz-form-label>
+                  <div class="col-12">
+                    <div class="form-group row">
+                      <nz-tree-select
+                        #newsGroup
+                        [nzExpandedKeys]="expandKeys"
+                        [nzNodes]="nodes"
+                        nzShowSearch
+                        nzPlaceHolder="Chọn chuyên mục"
+                        formControlName="newsGroup"
+                        class="col-12"
+                      ></nz-tree-select>
+                    </div>
+                  </div>
+                </div>
+
+               
+
+                <div class="col-md-4 col-12">
+                    <div class="form-group">
+                      <nz-form-label>Lưu ý đặc biệt</nz-form-label>
+                      <nz-select #specialNote class="form-control"
+                        formControlName="specialNote" style="border: none;">
+                        <nz-option nzValue="1" nzLabel="Bình thường" selected></nz-option>
+                        <nz-option nzValue="2" nzLabel="Đặc biệt"></nz-option>
+                      </nz-select>
+                      <!-- <span class="validatemsg">{{newsTypeMessage}}</span> -->
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-12">
+                    <div class="form-group ">
+                        <nz-form-label>Bắt đầu</nz-form-label>
+                        <nz-date-picker style="width: 100%" formControlName="startDate" nzPlaceHolder="Chọn ngày bắt đầu"></nz-date-picker>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-12">
+                    <div class="form-group">
+                        <nz-form-label>Kết thúc</nz-form-label>
+                        <nz-date-picker style="width: 100%" formControlName="endDate" nzPlaceHolder="Chọn ngày kết thúc"></nz-date-picker>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-12">
+                  <div class="form-group">
+                      <nz-form-label>Ngày xuất bản</nz-form-label>
+                      <nz-date-picker style="width: 100%" formControlName="publicStartDate" nzPlaceHolder="Chọn ngày xuất bản"></nz-date-picker>
+                  </div>
+              </div>
+                
+                <div class="col-md-4 col-12">
+                    <nz-form-label for="header">Header</nz-form-label>
+                    <nz-select #header class="form-control" style="border: none;" formControlName="header">
+                      <nz-option nzValue="" nzLabel="Không chọn" ></nz-option>
+                    </nz-select>
+                </div>
+
+
+                <div class="col-md-4 col-12">
+                    <nz-form-label for="footer">Footer</nz-form-label>
+                    <nz-select #footer class="form-control" style="border: none;" formControlName="footer">
+                      <nz-option nzValue="" nzLabel="Không chọn" ></nz-option>
+                    </nz-select>
+                </div>
+  
+                <div class="col-md-8 col-12">
+                  <div class="form-group" style="height: 95%;">
+                    <nz-form-label for="note" >Ghi chú</nz-form-label>
+                    <textarea class="form-control" id="note" formControlName="note" style="height: 90%;"></textarea>
+                  </div>
+                </div>
+
+                <div class="col-md-4 col-12 row">
+                  <nz-form-label  class="col-12">&nbsp;</nz-form-label>
+                  <div class="col-md-4 col-12">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="allowComment" formControlName="allowComment" />
+                        <label class="custom-control-label" for="allowComment">Cho hỏi đáp</label>
+                    </div>
+                      <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id="searchPriority" formControlName="searchPriority" />
+                          <label class="custom-control-label" for="searchPriority">Tin ưu tiên</label>
+                      </div>
+                      
+                  </div>
+                  
+
+                  <div class="col-md-8 col-12 row">
+                    <div class="col-8">
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="isShowOnHomePage1" formControlName="isShowOnHomePage1" />
+                        <label class="custom-control-label" for="isShowOnHomePage1" >Hiển thị trang chủ</label>
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id="isHotNews1" formControlName="isHotNews1" />
+                          <label class="custom-control-label" for="isHotNews1">Tin hot</label>
+                      </div>
+                      
+                    </div>
+                    <div class="col-2"  style="padding: 0;">
+                      <app-hotnews-config></app-hotnews-config>
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="" >Tag</label>
+                      <app-tags-config></app-tags-config>
+                    </div>
+                  </div>
+
+                  </div>
+
+                  <div class="col-12">
+                    <nz-form-label for="">Miêu tả (<=4000 ký tự)</nz-form-label>
+                    <ck-editor name="description" formControlName="description" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
+                  </div>
+                </div>
+
+                <div class="row step2" *ngIf="stepIndex==1">
+                <div class="col-md-8 col-12">
+                  
+  
+                  <nz-form-label for="" class="mt-1">Nội dung</nz-form-label>
+                  <div class="" formArrayName="blocks" >
+                    <div *ngFor="let block of blocks.controls;let i = index">
+                      <div class="" [formGroupName]="i">
+                        <div class="form-group">
+                          <label>Tiêu đề block {{i+1}}</label>
+                          <input formControlName="title" type="text" class="form-control mb-3" />
+                          <ck-editor class="" formControlName="content" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
+                        </div>
+                      </div>
+
+                      
+                    </div>
+                  </div>
+
+                  <div class=" mb-3">
+                    <div>
+                      <button type="button" class="btn btn-primary btn-outline-secondary mr-2 mw-30" (click)="hideMoreBlocks(i)" *ngIf="blocks.length > 1">-</button>
+                      <button type="button" class="btn btn-primary btn-outline-secondary mw-30" (click)="showMoreBlocks()">+</button>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="col-4">
+                  <app-image-list></app-image-list>
+                </div>
+              
+              </div>
+
+                  <div class="row step3" *ngIf="stepIndex==2">
+                    <div class="col-md-6 col-12 url" *ngFor="let cardInfo of relatedInfo">
+                      <app-custom-card
+                      [cardInfo]="cardInfo"
+                      ></app-custom-card>
+                    </div>
+                
+  
+                  <div class="col-12">
+                    <nz-collapse>
+                      <nz-collapse-panel
+                       
+                        nzHeader="Các tùy chọn khác"
+                        nzActive="false"
+                        nzDisabled="false"
+                        
+                      >
+                        <button type="button" nz-button [nzType]="'primary'" class="btn custom-btn mt-1">Import loại bản tin</button>
+                        <button type="button" nz-button [nzType]="'primary'" class="btn custom-btn ml-2 mt-1">Import loại công văn</button>
+                        <button type="button" nz-button [nzType]="'primary'" class="btn custom-btn ml-2 mt-1">Export excel</button>
+                        <button type="button" nz-button [nzType]="'primary'" class="btn custom-btn ml-2 mt-1">Bỏ liên kết</button>
+                        <button type="button" nz-button [nzType]="'primary'" class="btn custom-btn ml-2 mt-1">Bản tin đã ghim</button>
+                      </nz-collapse-panel>
+                    </nz-collapse>
+                 
+                  </div>
+
+                  <div class="col-12 mt-3">
+                    <div class="" style="text-align: center;">
+                      <button (click)="addNews()" style="color:#00e335;margin-right: 6px; " nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Chỉ lưu" nzTooltipPlacement="top" nzTooltipColor="#3399ff"><i nz-icon nzType="save" nzTheme="outline" class="custom-icon"></i></button>
+                      <button style="color:#02a829;margin-right: 6px;" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Lưu chờ duyệt" nzTooltipPlacement="top" nzTooltipColor="#3399ff"><i nz-icon nzType="save" nzTheme="outline" class="custom-icon"></i></button>
+                      <button style="color:#005d16;margin-right: 6px;" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Duyệt" nzTooltipPlacement="top" nzTooltipColor="#3399ff"><i nz-icon nzType="save" nzTheme="outline" class="custom-icon"></i></button>
+                      <button style="color:#890000;margin-right: 6px;" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Quay lại" nzTooltipPlacement="top" nzTooltipColor="#3399ff"><i nz-icon nzType="rollback" nzTheme="outline" class="custom-icon"></i></button>
+                      <button style="color:#0066b3;margin-right: 6px;" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Lấy link file" nzTooltipPlacement="top" nzTooltipColor="#3399ff"><i nz-icon nzType="link" nzTheme="outline" class="custom-icon"></i></button>
+                      <button style="color:#0066b3;margin-right: 6px;" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xem trước bản tin" nzTooltipPlacement="top" nzTooltipColor="#3399ff"><i nz-icon nzType="eye" nzTheme="outline" class="custom-icon"></i></button>
+                    </div>
+                  </div>
+                </div>
+  
+                  
+
+
+               
+
+            
+
+               
+
+            </form>
+
+          </div>
+          <ngx-spinner [name]="spinnerName" [type]="spinnerType"></ngx-spinner>
+        </core-card-snippet>
+      </div>
+    </div>
+  </section>

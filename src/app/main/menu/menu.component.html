@@ -1,0 +1,152 @@
+<div class="content-wrapper">
+    <div class="row content-header">
+        <div class="content-header-left mb-2 col-md-9 col-12">
+            <div class="row ">
+                <div class="col-12">
+                    <h2 class="content-header-titlet "> Danh sách menu </h2>
+                </div>
+                <div class="col-12">
+                    <nz-breadcrumb>
+                        <nz-breadcrumb-item>
+                            <a [routerLink]="['/']">Trang chủ</a>
+                        </nz-breadcrumb-item>
+                        <nz-breadcrumb-item>Menu</nz-breadcrumb-item>
+                    </nz-breadcrumb>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" content-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            Danh sách menu
+                        </h4>
+                        <div>
+                            <app-menu-add></app-menu-add>
+                            <button nz-button nzShape="circle" style="color:#28a745;" nzShape="circle" nz-tooltip
+                                nzTooltipTitle="Tìm kiếm" nzTooltipPlacement="top" nzTooltipColor="#3399ff"
+                                style="margin-right:10px;" (click)="showSearchForm()"><i nz-icon
+                                    nzType="search"></i></button>
+                        </div>
+                    </div>
+                    <div *ngIf="showSearch" class="card-body" style="align-items: center;">
+                        <div class="card " style="padding-top: 20px;padding-left:10px ;margin-bottom: 5px;">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-row form-group">
+                                        <label for="" class="col-lg-3  col-4 col-form-label">ID:</label>
+                                        <div class="col-lg-6"><input nz-input type="text" class="form-control"
+                                                placeholder="Nhập ID">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-row form-group">
+                                        <label for="" class="col-lg-4 col-4 col-form-label">Tên menu:</label>
+                                        <div class="col-lg-6"><input nz-input type="text" class="form-control"
+                                                placeholder="Tên menu">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="custom-control custom-checkbox"
+                                        style="float: right;margin-right: 80px;">
+                                        <label nz-checkbox>Hiển thị</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-row form-group">
+                                        <label for="" class="col-lg-3  col-4 col-form-label">Cấp menu:</label>
+                                        <div class="col-lg-6">
+                                            <nz-select nzAllowClear nzPlaceHolder="Chọn cấp menu" class="form-control">
+                                                <nz-option nzValue="1" nzLabel="1">
+                                                </nz-option>
+                                                <nz-option nzValue="2" nzLabel="2">
+                                                </nz-option>
+                                                <nz-option nzValue="3" nzLabel="3">
+                                                </nz-option>
+                                            </nz-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-row form-group">
+                                        <label for="" class="col-lg-4 col-4 col-form-label">Menu cha
+                                            (ID):</label>
+                                        <div class="col-lg-6">
+                                            <nz-select nzAllowClear nzPlaceHolder="Chọn menu cấp cha"
+                                                class="form-control">
+                                                <nz-option nzValue="1" nzLabel="1">
+                                                </nz-option>
+                                                <nz-option nzValue="2" nzLabel="2">
+                                                </nz-option>
+                                                <nz-option nzValue="3" nzLabel="3">
+                                                </nz-option>
+                                            </nz-select>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-row form-group" style="float: right;margin-right: 10px;">
+                                        <button nz-button style="margin-right:10px;color:#126024">Tìm
+                                            kiếm</button>
+                                        <button nz-button nzType="default" style="color:#cf2635">Xóa</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <nz-table #rowSelectionTable #sortTable nzShowSizeChanger [nzData]="listOfData"
+                        [nzPageSizeOptions]="[5,10,20]" #borderedTable nzBordered [nzLoading]="loading" nzSize="small"
+                        [nzScroll]="{ y: '140px' }" (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+                        <thead>
+                            <tr>
+                                <th class="blue" [(nzChecked)]="checked" [nzIndeterminate]="indeterminate"
+                                    (nzCheckedChange)="onAllChecked($event)"></th>
+                                <th class="blue">STT</th>
+                                <th class="blue">ID</th>
+                                <th class="blue" nzColumnKey="cName" [nzSortFn]="true">Tên menu</th>
+                                <th class="blue">Cấp menu</th>
+                                <th class="blue">Icon</th>
+                                <th class="blue">Menu cấp cha</th>
+                                <th class="blue">Hiển thị</th>
+                                <th class="blue">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of rowSelectionTable.data;index as idx">
+                                <td [nzChecked]="setOfCheckedId.has(data.id)"
+                                    (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+                                <td>{{ idx }}</td>
+                                <td>{{ data.id }}</td>
+                                <td>{{ data.name }}</td>
+                                <td>{{data.menuLevel}}</td>
+                                <td> <i [data-feather]="data.icon"></i></td>
+                                <td> {{data.parentId}}</td>
+                                <td> {{data.publish == 1? 'Có': 'Không'}}</td>
+                                <td> <i nz-icon nzType="edit" (click)="show()" style="color:#28a745"></i>
+                                    &nbsp;
+                                    <i nz-icon nzType="delete" (click)="show()" style="color:#c90d1f"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+p-treetable>div {
+    border: 1px solid #ddd;
+    font-family: "Segoe UI", Roboto, sans-serif;
+    border-collapse: collapse;
+
+}
+
+// th.ant-table-cell{
+//     color: #1890ff!important;
+// }
+
+nz-select {
+    border: none !important;
+}
+
+col-form-label {
+    font-size: 11px !important;
+}
+
+body>app-root>nb-layout>nb-layout-column>horizontal-layout>div.app-content.content>content>div>app-menu>div>div.content-body>div>div:nth-child(2)>div>div>nz-table>nz-spin>div>div>nz-table-inner-default>div>table>thead {
+    background-color: aqua;
+}
+
+.blue {
+    background-color: #0066b3 !important;
+    color: white !important;
+    font-weight: 500;
+}

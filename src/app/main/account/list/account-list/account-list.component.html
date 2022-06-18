@@ -1,0 +1,170 @@
+<div class="content-wrapper">
+  <div class="row content-header">
+    <div class="content-header-left mb-2 col-md-9 col-12">
+      <div class="row ">
+        <div class="col-12">
+          <h2 class="content-header-titlet "> QUẢN LÝ NGƯỜI DÙNG </h2>
+        </div>
+        <div class="col-12">
+          <nz-breadcrumb>
+            <nz-breadcrumb-item>
+              <a [routerLink]="['/']">Trang chủ</a>
+            </nz-breadcrumb-item>
+            <nz-breadcrumb-item>Người dùng</nz-breadcrumb-item>
+          </nz-breadcrumb>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=" content-body">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">
+              Danh sách người dùng
+            </h4>
+            <div>
+              <app-account-add (newItemEvent)="reloadSearch($event)"></app-account-add>
+              <button nz-button nzType="default" nzShape="circle" (click)="showSearchForm()"
+              nzTooltipTitle="Tìm kiếm nâng cao" nz-tooltip nzTooltipPlacement="top" nzTooltipColor="#3399ff">
+                <i nz-icon nzType="search"></i>
+              </button>
+            </div>
+          </div>
+          <div *ngIf="showSearch" class="card-body" style="align-items: center;">
+            <div class="card " style="padding-top: 20px;padding-left:10px ;">
+              <form class="form" [formGroup]="userForm">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-row form-group">
+                      <label for="" class="col-lg-4 col-4 col-form-label">Loại tài khoản:</label>
+                      <div class="col-lg-7">
+                        <nz-select nzAllowClear style="border: none;" nzPlaceHolder="Chọn loại tài khoản"
+                          class="form-control" [nzNotFoundContent]="notFound" formControlName="type">
+                          <nz-option *ngFor="let option of AcTypeList" [nzValue]="option.value"
+                            [nzLabel]="option.label">
+                          </nz-option>
+                        </nz-select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-row form-group">
+                      <label for="" class="col-lg-3 col-4 col-form-label">Khu vực:</label>
+                      <div class="col-lg-7">
+                        <nz-select formControlName="center" nzAllowClear nzPlaceHolder="Khu vực" 
+                        class="form-control" [nzNotFoundContent]="notFound" style="border: none;">
+                        <nz-option *ngFor="let option of centerList" [nzValue]="option.id" [nzLabel]="option.name">
+                        </nz-option>
+                      </nz-select>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="col-md-4">
+                    <div class="custom-control custom-checkbox" style="float: right;margin-right: 80px;">
+                      <input type="checkbox" class="custom-control-input" checked>
+                      <label class="custom-control-label">Hiển thị</label>
+                    </div>
+                  </div> -->
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-row form-group">
+                      <label for="" class="col-lg-4 col-4 col-form-label">Tên đăng nhập:</label>
+                      <div class="col-lg-7">
+                        <input id="input-default" type="text" placeholder="Tên đăng nhập"
+                          class="form-control" nz-input>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-row form-group">
+                      <label for="" class="col-lg-3 col-4 col-form-label">Trạng thái:</label>
+                      <div class="col-lg-7">
+                        <nz-select formControlName="status" nzAllowClear style="border: none;"
+                        nzPlaceHolder="Trạng thái" class="form-control" [nzNotFoundContent]="notFound">
+                        <nz-option *ngFor="let option of status" [nzValue]="option.value" [nzLabel]="option.label">
+                        </nz-option>
+                      </nz-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4 ">
+                    <div class="form-row form-group" style="float: right;margin-right: 10px;">
+                      <button nz-button nzType="primary" style="margin-right:10px" (click)="doSearch()">Tìm kiếm</button>
+                      <button nz-button nzType="default" (click)="deleteUsers()">Xóa</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <section id="ngx-datatable-inline-editing">
+          <core-card-snippet [snippetCode]="_snippetCodeMultiple">
+            <div class="row" id="basic-table">
+              <div class="col-12">
+                <div class="card">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th *ngIf="showSearch"></th>
+                          <th style="text-align: center;">STT</th>
+                          <th>Tên đăng nhập</th>
+                          <th>Tên đầy đủ</th>
+                          <th>Email</th>
+                          <th style="text-align: center;">Trạng thái</th>
+                          <th>Thời gian tạo</th>
+                          <th style="text-align: center;">Lựa chọn</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="let item of userList | paginate: { id: 'pagging', itemsPerPage: perPage, currentPage: currentPage, totalItems: totalFb}; let i = index">
+                          <td *ngIf="showSearch" style="text-align: center;"
+                          [nzChecked]="checked" (nzCheckedChange)="onItemChecked(item.accountId, $event)"></td>
+                          <td style="text-align: center;">{{(currentPage - 1) * perPage + i+1}}</td>
+                          <td class="cell-2">
+                            {{item.loginId}}</td>
+                          <td class="cell-2">
+                            {{item.accountName}}</td>
+                          <td class="cell-2">
+                            {{item.email}}</td>
+                          <td *ngIf="item.accountStatus=='ACTIVE'" class="cell-2"
+                            data-placement="top" style="color: #00cc00; text-align: center;">
+                            <i nz-icon nzType="unlock" nzTheme="outline" nzTooltipTitle="Đang hoạt động" nzTooltipColor="#00cc00" nz-tooltip nzTooltipPlacement="left"></i>
+                          </td>
+                          <td *ngIf="item.accountStatus=='DEACTIVE'" class="cell-2"
+                            data-placement="top" style="color: #ff471a; text-align: center;">
+                            <i nz-icon nzType="lock" nzTheme="outline" nzTooltipTitle="Khoá" nzTooltipColor="#ff471a" nz-tooltip nzTooltipPlacement="left"></i>
+                          </td>
+                          <td class="cell-2">
+                            {{item.createdDate | date:"d/M/yy, h:mm a"}}</td>
+                          <td class="cell-2" style="text-align: center;">
+                            <a (click)="edit(item.accountId, item.loginId)" class="pointer" nzTooltipTitle="Sửa" nz-tooltip nzTooltipPlacement="top">
+                              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;
+                            </a>
+                            <a (click)="deleteUser(item.accountId, item.loginId)" class="pointer" nzTooltipTitle="Xoá" nz-tooltip nzTooltipPlacement="top">
+                              <i class="fa fa-trash" aria-hidden="true"></i>
+                            </a>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="onTableDataChange($event)" id="pagging"></pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </core-card-snippet>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>

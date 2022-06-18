@@ -1,0 +1,276 @@
+@import '@core/scss/core.scss';
+@import './assets/scss/styles';
+@import './assets/fonts/feather/iconfont.css';
+
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/themes/dark.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+@import "~ng-zorro-antd/ng-zorro-antd.min.css";
+
+#main-menu-navigation>li.ng-star-inserted.active>a {
+    background: #0066b3 !important;
+}
+
+h2.brand-text.mb-0 {
+    color: white !important;
+}
+
+body>app-root>nb-layout>nb-layout-column>horizontal-layout>app-navbar>div.navbar-container.d-flex.content {
+    background-color: #0066b3 !important;
+}
+
+.ant-modal-header {
+    background-color: #0066b3 !important;
+
+}
+
+.ant-modal-close-icon {
+    color: white !important;
+}
+
+.ant-modal-title {
+    color: white !important;
+}
+
+
+body>app-root>nb-layout>nb-layout-column>horizontal-layout>app-navbar>div.navbar-header.d-xl-block.d-none.ng-star-inserted {
+    left: 8% !important;
+}
+
+body>app-root>nb-layout>nb-layout-column>horizontal-layout>app-navbar>div.navbar-header.d-xl-block.d-none.ng-star-inserted>ul>li>a>h2 {
+    color: #0066b3 !important;
+}
+
+.ant-btn-primary {
+    color: #fff;
+    border-color: #0066b3 !important;
+    background: #0066b3 !important;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+    width: 116px;
+}
+
+body>app-root>nb-layout>nb-layout-column>horizontal-layout>app-navbar>div.navbar-container.d-flex.content>ul>li.nav-item.d-none.d-lg-block>a>span {
+    color: white
+}
+
+.ant-pagination-item-active a,
+.ant-pagination-item:focus-visible a,
+.ant-pagination-item:hover a {
+    color: #0066b3 !important;
+}
+
+.ngx-datatable {
+    // border: 1px solid #d8d6de;
+    border: 1px solid #424242;
+
+    .datatable-header {
+        background-color: #424242;
+        color: #ededed;
+        height: 80px;
+    }
+
+    .datatable-body {
+        .datatable-body-row {
+            height: 30px !important;
+
+            .datatable-body-cell {
+                background-color: white;
+                border: solid black 1px;
+                height: 30px;
+                color: black;
+            }
+        }
+    }
+}
+
+.ngx-datatable {
+    .datatable-body {
+        .row-sub-title {
+            .datatable-body-cell {
+                font-weight: bold !important;
+                background-color: #cfc9c8 !important;
+                height: 30px;
+                color: black;
+                border-left: none;
+                border-right: none;
+            }
+        }
+    }
+}
+
+.ngx-datatable {
+    .sel-box {
+        background-color: #ffe4c4 !important;
+    }
+
+    .edit-line-input {
+        background-color: #f2fd8b !important;
+    }
+
+    .hidenData {
+        display: none !important;
+    }
+
+    .datatable-header {
+        .datatable-header-cell {
+            height: 80px !important;
+
+            span.datatable-header-cell-wrapper {
+                overflow-wrap: break-word;
+            }
+        }
+    }
+
+    .datatable-body {
+        .row-bold {
+            .datatable-body-cell {
+                font-weight: bold !important;
+                height: 30px;
+                color: black;
+                border-left: none;
+                border-right: none;
+            }
+        }
+
+        .blue-text {
+            .datatable-body-cell {
+                height: 30px;
+                color: rgb(47, 66, 235);
+            }
+        }
+
+        .red-text {
+            .datatable-body-cell {
+                height: 30px;
+                color: rgb(238, 18, 18);
+            }
+        }
+    }
+}
+
+.ngx-datatable .inline-table {
+
+    // border: 1px solid #d8d6de;
+    .datatable-header {
+        background-color: #8d2c2c;
+    }
+
+    .datatable-body {
+        .datatable-body-row {
+
+            // height: 30px !important;      
+            .datatable-body-cell {
+                border: none !important;
+                padding: 0px !important;
+                // height: 30px;
+                // color: black;
+            }
+        }
+    }
+}
+
+.gray {
+    background-color: gray !important;
+}
+
+.orange-accent2 {
+    background-color: #FCE4D6 !important;
+}
+
+.light-yellow {
+    background-color: #FFFF99 !important;
+}
+
+.yellow {
+    background-color: #FFFF00 !important;
+}
+
+
+.validatemsg {
+    color: red;
+}
+
+.wrapper-utils {
+    padding: 0 15px;
+}
+
+.marginleft {
+    padding: 10px;
+    margin-left: 10px;
+}
+
+body[class*="dark-layout"] {
+    #main-menu-navigation {
+        a {
+            span {
+                color: #d0d2d6;
+            }
+        }
+    }
+}
+
+#main-menu-navigation {
+    a {
+        span {
+            color: #000;
+            font-weight: 400;
+        }
+    }
+
+    >li.active {
+        >a {
+            span {
+                color: #fff;
+            }
+        }
+    }
+}
+
+.number-class {
+    text-align: right !important;
+    padding-right: 5px !important;
+}
+
+.sub-tables {
+    border: 2px solid #000;
+    background-color: #dffcdc;
+
+    tr {
+        td {
+            border: none;
+        }
+
+        td.split-right {
+            border-right: 1px solid #ebe9f1;
+        }
+
+        td.split-left {
+            border-left: 1px solid #ebe9f1;
+        }
+    }
+}
+
+.col-center {
+    align-items: center;
+}
+
+
+.fix-size {
+    width: 112px;
+}
+
+nz-select {
+    border: none !important;
+}
+
+nz-tree-select{
+    border: none !important;
+}
+nz-steps {
+    display: block;
+    margin-bottom: 20px;
+    box-shadow: rgb(232, 232, 232) 0px -1px 0px 0 inset;
+}

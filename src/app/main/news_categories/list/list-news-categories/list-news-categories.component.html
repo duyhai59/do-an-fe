@@ -1,0 +1,121 @@
+<div class="content-wrapper">
+    <div class="row content-header">
+        <div class="content-header-left mb-2 col-md-9 col-12">
+            <div class="row ">
+                <div class="col-12">
+                    <h2 class="content-header-titlet "> CHUYÊN MỤC </h2>
+                </div>
+                <div class="col-12">
+                    <nz-breadcrumb>
+                        <nz-breadcrumb-item>
+                            <a [routerLink]="['../']">Trang chủ</a>
+                        </nz-breadcrumb-item>
+                        <nz-breadcrumb-item>Chuyên mục</nz-breadcrumb-item>
+                    </nz-breadcrumb>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" content-body">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">
+                            Danh sách chuyên mục
+                        </h4>
+                        <div>
+                            <app-add-news-categories></app-add-news-categories>
+                            <button nz-button nzType="default" nzShape="circle" (click)="showSearchForm()"
+                                nzTooltipTitle="Tìm kiếm nâng cao" nz-tooltip nzTooltipPlacement="top"
+                                nzTooltipColor="#3399ff">
+                                <i nz-icon nzType="search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div *ngIf="showSearch" class="card-body" style="align-items: center;">
+                        <div class="card " style="padding-top: 20px;padding-left:10px ;">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-row form-group">
+                                        <label for="" class="col-lg-2    col-4 col-form-label">ID:</label>
+                                        <div class="col-lg-6"><input id="input-default" type="text"
+                                                placeholder="ID menu" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-row form-group">
+                                        <label for="" class="col-lg-3 col-4 col-form-label">Tên menu:</label>
+                                        <div class="col-lg-6"><input id="input-default" type="text"
+                                                placeholder="Nhập tên menu" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-row form-group">
+                                        <label for="" class="col-lg-2    col-4 col-form-label">ID:</label>
+                                        <div class="col-lg-6"><input id="input-default" type="text"
+                                                placeholder="ID menu" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-row form-group">
+                                        <label for="" class="col-lg-3 col-4 col-form-label">Tên menu:</label>
+                                        <div class="col-lg-6"><input id="input-default" type="text"
+                                                placeholder="Nhập tên menu" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 ">
+                                    <div class="form-row form-group" style="float: right;margin-right: 10px;">
+                                        <button nz-button nzType="primary" style="margin-right:10px">Tìm kiếm</button>
+                                        <button nz-button nzType="default">Xóa</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <section id="ngx-datatable-inline-editing">
+                  <core-card-snippet [snippetCode]="_snippetCodeMultiple">
+                    <div class="row" id="basic-table">
+                      <div class="col-12">
+                        <div class="card">
+                          <div class="table-responsive">
+                            <p-treeTable [value]="files2" [columns]="cols">
+                                <ng-template pTemplate="header" let-columns>
+                                    <tr [ttRow]="rowNode">
+                                        <th *ngFor="let col of columns">
+                                            {{col.header}}
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                                    <tr>
+                                        <td *ngFor="let col of columns; let i = index">
+                                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                                            {{rowData[col.field]}}
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-treeTable>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </core-card-snippet>
+                </section>
+            </div>
+
+        </div>
+    </div>
+</div>

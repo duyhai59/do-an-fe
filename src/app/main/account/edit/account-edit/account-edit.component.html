@@ -1,0 +1,103 @@
+<section id="multiple-column-form">
+  <div class="row match-height">
+    <div class="col-12">
+      <core-card-snippet>
+        <h4 class="card-title">CHỈNH SỬA TÀI KHOẢN</h4>
+        <div class="card-body">
+          <form class="form" [formGroup]="userEditForm" (ngSubmit)="updateUser()">
+            <div class="row">
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label>Loại tài khoản<b class="required" style="color: #ff0000">(*)</b></label>
+                  <select #type (click)="clearTypeMessage()" class="form-control" placeholder="Loại tài khoản"
+                    formControlName="accountType">
+                    <option selected hidden value="">Loại tài khoản</option>
+                    <!-- <option value="1">Email</option> -->
+                    <option value="1">ADMIN</option>
+                    <option value="2">MDS USER</option>
+                    <option value="3">USER CTY KHU VỰC</option>
+                  </select>
+                  <span class="validatemsg">{{typeMessage}}</span>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label>Tên đăng nhập<b class="required" style="color: #ff0000">(*)</b></label>
+                  <input #loginId type="text" class="form-control" placeholder="Tên đăng nhập" formControlName="loginId"
+                    (click)="clearUserNameMessage()" />
+                  <span class="validatemsg">{{userNameMessage}}</span>
+                </div>
+              </div>
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label>Tên người dùng<b class="required" style="color: #ff0000">(*)</b></label>
+                  <input #accountName type="text" class="form-control" placeholder="Tên người dùng"
+                    formControlName="accountName" (click)="clearFullNameMessage()" />
+                  <span class="validatemsg">{{fullNameMessage}}</span>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12">
+                <label for="dropdown">Quyền của tài khoản<b class="required" style="color: #ff0000">(*)</b></label>
+                <!-- <select #role (click)="clearRoleMessage()" class="form-control" formControlName="role">
+                  <option selected hidden value="">Quyền của tài khoản</option>
+                  <option *ngFor="let r of roleList" [value]="r.id">{{r.name}}</option>
+                </select> -->
+                <ng-select [items]="roleList" bindValue="id" bindLabel="name" 
+                #role 
+                formControlName="role" (click)="clearRoleMessage()"> 
+                </ng-select>
+                <span class="validatemsg">{{roleMessage}}</span>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label>Email<b class="required" style="color: #ff0000">(*)</b></label>
+                  <input #email type="email" class="form-control" placeholder="Email" formControlName="email"
+                    (click)="clearEmailMessage()" />
+                  <span class="validatemsg">{{emailMessage}}</span>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label>Trạng thái<b class="required" style="color: #ff0000">(*)</b></label>
+                  <select #accountStatus (click)="clearStateMessage()" class="form-control" placeholder="Trạng thái"
+                    formControlName="accountStatus">
+                    <option selected hidden value="">Trạng thái</option>
+                    <option value="WAITING">ĐANG CHỜ</option>
+                    <option value="ACTIVE">ĐANG HOẠT ĐỘNG</option>
+                    <option value="DEACTIVE">DỪNG HOẠT ĐỘNG</option>
+                  </select>
+                  <span class="validatemsg">{{stateMessage}}</span>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-12">
+                <div class="form-group">
+                  <label>Số điện thoại</label>
+                  <input #phone type="text" class="form-control" placeholder="Số điện thoại" formControlName="phone"
+                    (click)="clearAddressMessage()" />
+                  <span class="validatemsg">{{addressMessage}}</span>
+                </div>
+              </div>
+
+              <input
+                type="text"
+                hidden
+                formControlName="accountId"/>
+
+              <div class="col-12">
+                <div class="row" style="justify-content: center;">
+                  <button type="button" (click)="back()" rippleEffect class="btn btn-primary mr-1">Quay lại</button>
+                  <button type="submit" rippleEffect class="btn btn-primary mr-1">Lưu</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <ngx-spinner [name]="spinnerName" [type]="spinnerType"></ngx-spinner>
+      </core-card-snippet>
+    </div>
+  </div>
+</section>

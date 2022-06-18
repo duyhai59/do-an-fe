@@ -1,0 +1,86 @@
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+        <!-- / Basic multiple Column Form section start -->
+        <section id="multiple-column-form">
+            <div class="row match-height">
+
+                <div class="col-12">
+                    <core-card-snippet>
+                        <h2 class="card-title">DANH SÁCH QUYỀN THEO MENU</h2>
+                        <div class="card-body">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div style="overflow-y: scroll; height: 850px;">
+                                        <div *ngFor="let item of allMenu, index as i">
+                                            <table id="priviledge-table" class="table table-bordered tableFixHead">
+                                                <thead class="fixed-header"
+                                                    [ngStyle]="{'display': (i == 0) ? '' : 'none'}">
+                                                    <tr>
+                                                        <th class="col-md-3 text-center">Menu</th>
+                                                        <th class="col-md-1 text-center">Cấp Menu</th>
+                                                        <th class="col-md-7 text-center">Quyền theo menu</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="col-md-3">{{item.title}}</td>
+                                                        <td class="col-md-1 text-center">{{item.menuLevel}}</td>
+                                                        <td class="col-md-7">
+                                                            <div class="row">
+                                                                <div class="row ml-2 col-md-2 col-sm-2 border-right"
+                                                                    *ngFor="let action of item.authPrivileges">
+                                                                    <div
+                                                                        [innerHTML]='action.act != undefined ? action.act : "Null"'>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </core-card-snippet>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>
+
+
+
+<!-- <ng-template #addNewModal let-modal>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Thêm mới quyền cho Menu</h4>
+            <button type="button" class="btn" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            adasdasff
+            <form #formAddNew="ngForm">
+                <div class="row">
+                    <div class="col-md-4 ">Tên quyền</div>
+                    <div class="col-md-6 ">
+
+                        <input type="text" />
+
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="page-button update-button" (click)="submitFormAddNew(formAddNew)">
+                <i class="fa fa-save"></i> Lưu</button>
+        </div>
+    </div>
+</ng-template> -->

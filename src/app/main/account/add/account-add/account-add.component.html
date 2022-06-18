@@ -1,0 +1,143 @@
+<button nz-button nzType="primary" (click)="showModal()" style="margin-right:10px;" nzShape="round" 
+nzTooltipTitle="Thêm mới" nz-tooltip nzTooltipPlacement="top" nzTooltipColor="#3399ff">
+  <i nz-icon nzType="plus" nzTheme="outline"></i>
+</button>
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+  nzWidth="1000px" nzCentered>
+  <ng-template #modalTitle>THÊM MỚI NGƯỜI DÙNG</ng-template>
+  <ng-container *nzModalContent>
+    <section id="multiple-column-form">
+      <div class="row match-height">
+        <div class="col-12">
+          <core-card-snippet>
+            <div class="card-body">
+              <form class="form" [formGroup]="formAddUser">
+                <div class="row">
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label nzRequired>Loại tài khoản</nz-form-label>
+                      <nz-select #accountType formControlName="accountType" nzAllowClear (click)="clearTypeMessage()"
+                        nzPlaceHolder="Chọn loại tài khoản" class="form-control" [nzNotFoundContent]="notFound"
+                        style="border: none;">
+                        <nz-option *ngFor="let option of typeList" [nzValue]="option.value" [nzLabel]="option.label">
+                        </nz-option>
+                      </nz-select>
+                      <span class="validatemsg">{{typeMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label nzRequired>Khu vực</nz-form-label>
+                      <nz-select #center formControlName="center" nzAllowClear (click)="clearCenterMessage()"
+                        nzPlaceHolder="Khu vực" class="form-control" [nzNotFoundContent]="notFound"
+                        style="border: none;">
+                        <nz-option *ngFor="let option of listCenter" [nzValue]="option.id" [nzLabel]="option.name">
+                        </nz-option>
+                      </nz-select>
+                      <span class="validatemsg">{{centerMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label nzRequired>Tên đăng nhập</nz-form-label>
+                      <input nz-input #loginId type="text" class="form-control" placeholder="Tên đăng nhập"
+                        formControlName="loginId" (click)="clearUserNameMessage()" />
+                      <span class="validatemsg">{{userNameMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label nzRequired>Tên đầy đủ</nz-form-label>
+                      <input nz-input #accountName type="text" class="form-control" placeholder="Tên người dùng"
+                        formControlName="accountName" (click)="clearFullNameMessage()" />
+                      <span class="validatemsg">{{fullNameMessage}}</span>
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-lg-6 col-md-12">
+                    <nz-form-label nzRequired>Quyền của tài khoản</nz-form-label>
+                    <ng-select [items]="roleList" bindValue="id" bindLabel="name" #role formControlName="role"
+                      (click)="clearRoleMessage()">
+                    </ng-select>
+                    <span class="validatemsg">{{roleMessage}}</span>
+                  </div> -->
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label nzRequired>Mật khẩu</nz-form-label>
+                      <input nz-input #password [type]="status ? 'password' : 'text'" class="form-control"
+                        placeholder="Mật khẩu" formControlName="password" (click)="clearPasswordMessage()" />
+                      <span toggle="#password" (click)="showAndHide()"
+                        [ngClass]="status ? 'fa fa-fw fa-eye field-icon toggle-password' : 'fa fa-fw fa-eye-slash field-icon toggle-password'"></span>
+                      <span class="validatemsg">{{passwordMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label nzRequired>Email</nz-form-label>
+                      <input nz-input #email type="email" class="form-control" placeholder="Email"
+                        formControlName="email" (click)="clearEmailMessage()" />
+                      <span class="validatemsg">{{emailMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label nzRequired>Trạng thái</nz-form-label>
+                      <nz-select #accountStatus formControlName="accountStatus" nzAllowClear style="border: none;"
+                        nzPlaceHolder="Trạng thái" class="form-control" [nzNotFoundContent]="notFound">
+                        <nz-option *ngFor="let option of statusList" [nzValue]="option.value" [nzLabel]="option.label">
+                        </nz-option>
+                      </nz-select>
+                      <span class="validatemsg">{{stateMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label>Số điện thoại</nz-form-label>
+                      <input nz-input #phone type="text" class="form-control" placeholder="Số điện thoại"
+                        formControlName="phone" (click)="clearPhoneMessage()" />
+                      <span class="validatemsg">{{phoneMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label>Địa chỉ</nz-form-label>
+                      <input nz-input #address type="text" class="form-control" placeholder="Địa chỉ"
+                        formControlName="address" (click)="clearAddressMessage()" />
+                      <span class="validatemsg">{{addressMessage}}</span>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-12">
+                    <div class="form-group">
+                      <nz-form-label>Giới tính</nz-form-label>
+                      <nz-radio-group formControlName="gender" #gender style="display: flex;">
+                        <label nz-radio nzValue="1">Nam</label>
+                        <label nz-radio nzValue="0">Nữ</label>
+                      </nz-radio-group>
+                      <span class="validatemsg">{{genderMessage}}</span>
+                    </div>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+            <ngx-spinner [name]="spinnerName" [type]="spinnerType"></ngx-spinner>
+          </core-card-snippet>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+  <div *nzModalFooter style="align-content: flex-end;">
+    <button nz-button nzType="default" (click)="handleCancel()" rippleEffect>Quay lại</button>
+    <button nz-button type="reset" rippleEffect (click)="reset()">Nhập lại</button>
+    <button nz-button nzType="primary" (click)="handleOk()" rippleEffect>Thêm mới</button>
+  </div>
+</nz-modal>

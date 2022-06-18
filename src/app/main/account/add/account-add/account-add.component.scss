@@ -1,0 +1,28 @@
+.field-icon {
+    float: right;
+    margin-left: -25px;
+    margin-right: 10px;
+    margin-top: -25px;
+    position: relative;
+    z-index: 2;
+}
+  @import '@core/scss/angular/libs/select.component.scss';
+  .table{
+      min-width: max-content;
+  }
+  #cdk-overlay-0 > nz-modal-container > div > div > div.ant-modal-body.ng-tns-c495-2{
+      padding-bottom: 0px!important;
+  }
+  #multiple-column-form > div > div > core-card-snippet > div{
+      height: 100%;
+  }
+  [nz-button] {
+    margin-right: 8px;
+    margin-bottom: 12px;
+  }
+
+  nz-button-group [nz-button] {
+    margin-right: 0;
+  }
+
+

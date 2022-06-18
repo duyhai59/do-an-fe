@@ -1,0 +1,60 @@
+
+:host ::ng-deep *{
+    font-family: "Segoe UI", Roboto, sans-serif !important;
+}
+
+:host ::ng-deep #checkbox-elements-wrap{
+    padding: 0;
+    margin-bottom: 0;
+    :first-child{
+        padding-right: 0;
+    }
+    :last-child{
+        padding-left: 0;
+    }
+}
+:host ::ng-deep #basic-table{
+    .row{
+        align-items: center;
+        margin-bottom: 0;
+    }  
+}
+:host ::ng-deep .row{
+    align-items: center;
+}
+
+:host ::ng-deep #multiple-column-form > div > div > core-card-snippet > div > div.card-header{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+:host ::ng-deep #multiple-column-form > div > div > core-card-snippet > div{
+    height: unset !important;
+}
+
+:host ::ng-deep div.card-header{
+    display: none !important;
+}
+:host ::ng-deep .card-body{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+:host ::ng-deep .ant-modal{
+    .ant-modal-footer{
+        text-align: left !important;
+    }
+}
+:host ::ng-deep nz-date-picker,
+nz-range-picker {
+  margin: 0 8px 0px 0;
+}
+
+:host ::ng-deep .blue{
+    background: #0066b3 !important;
+    color: #fff !important;
+}
+
+:host ::ng-deep core-card-snippet > div > div.row > div.col-md-3.row > button{
+    margin-bottom: 0 !important;
+}

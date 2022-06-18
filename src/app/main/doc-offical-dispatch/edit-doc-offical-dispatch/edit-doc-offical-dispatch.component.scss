@@ -1,0 +1,34 @@
+@import "~ng-zorro-antd/style/index.min.css"; /* Import base styles */
+@import "~ng-zorro-antd/button/style/index.min.css";  /* Import one component's styles */
+
+*{
+    font-family: "Segoe UI", Roboto, sans-serif !important;
+}
+nz-select{
+    border: none;
+}
+fieldset{
+    > div{
+        padding-left: 0;
+    }
+}
+input[type="checkbox"]{
+    margin-bottom: 0 !important;
+}
+.row{
+    align-items: center !important;
+}
+.note{
+    h6,p{
+        margin-bottom: 3px !important;
+    }
+}
+.form-group{
+    margin-bottom: 6px !important;
+}
+.custom-file-label::after{
+    height: auto;
+}
+.custom-file-label{
+    height: 33px !important;
+}

@@ -1,0 +1,76 @@
+<button nz-button nzType="primary" (click)="open()">Thay đổi</button>
+
+<!-- <button nz-button nzType="primary" data-feather="settings" (click)="open()">A</button> -->
+      <nz-drawer
+      [nzClosable]="false"
+      [nzVisible]="visible"
+      nzPlacement="right"
+      nzTitle="Thay đổi hiển thị bản tin"
+      [nzWidth]="700"
+      [nzFooter]="footerTpl"
+      (nzOnClose)="close()"
+      >
+      <form [formGroup]="configForm" *nzDrawerContent>
+            <nz-form-item >
+                <label>Tiêu đề</label>
+                <input #title type="text" class="form-control" formControlName="title"/>
+            </nz-form-item>
+        
+        
+             <nz-form-item>
+                <label>Loại nội dung</label>
+                    <select #newsType class="form-control"
+                      formControlName="newsType">
+                      <option value="1" selected>Tin tức</option>
+                      <option value="2">Khuyến mãi</option>
+                      <option value="3">Dịch vụ</option>
+                      <option value="4">Thuê bao/Gói cước</option>
+                    </select>
+            </nz-form-item>
+            
+           
+        
+       
+        <div nz-row [nzGutter]="8">
+          <div nz-col nzSpan="12">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="isHotNews" formControlName="isHotNews" (change)="changeType1()"/>
+                <label class="custom-control-label" for="isHotNews">Chọn làm tin hot</label>
+            </div>
+          </div>
+          <div nz-col nzSpan="12">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="isShowOnHomePage" formControlName="isShowOnHomePage" (change)="changeType2()"/>
+                <label class="custom-control-label" for="isShowOnHomePage" >Hiển thị trang chủ</label>
+              </div>
+          </div>
+
+         
+           
+            
+            <br />
+        <!-- </div> -->
+        </div>
+      <ng-container formArrayName="dates" *ngIf="configForm.value.isHotNews" >
+      <div nz-row [nzGutter]="8" *ngFor="let date of dates.controls;let i = index">
+        <div nz-col nzSpan="20" class="mt-4" [formGroupName]="i">
+          <nz-range-picker [nzShowTime]="true" formControlName="date" style="width: 100%;" ></nz-range-picker>
+         </div>
+
+         <div nz-col nzSpan="4" class="mt-4">
+           <nz-form-item>
+            <button type="button" class="btn btn-primary btn-outline-secondary ml-2 mw-30" (click)="hideMoreConfiguredDate(i)" *ngIf="i != 0">-</button>
+             <button type="button" class="btn btn-primary btn-outline-secondary ml-2 mw-30" (click)="showMoreConfiguredDate()" >+</button>
+            </nz-form-item> 
+         </div>
+      </div>
+      </ng-container>
+      </form>
+
+      <ng-template #footerTpl>
+        <div style="float: right">
+          <button nz-button style="margin-right: 8px;" (click)="close()">Hủy</button>
+          <button nz-button nzType="primary" (click)="close()">OK</button>
+        </div>
+      </ng-template>
+    </nz-drawer>

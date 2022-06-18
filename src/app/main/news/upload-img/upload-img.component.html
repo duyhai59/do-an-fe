@@ -1,0 +1,21 @@
+<button nz-button [nzType]="'primary'" (click)="showModal()"><span>Upload ảnh</span></button>
+    <nz-modal [(nzVisible)]="isVisible" nzTitle="Upload ảnh" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+      <ng-container *nzModalContent>
+            <div class="content-image">
+                <div style="position:relative;width: 104px; height: 104px;padding: 5px;border: 1px solid rgb(55, 122, 255);" *ngFor="let url of urls;index as i">
+                    <img class="" [src]="url" alt="avatar" width="93" height="93">
+                    <img src="./assets/images/fi-rr-cross-small.png" class="delete-image" width="17" (click)="deleteImage(i)">
+                </div>
+    
+                <div style="text-align: center;" class="image" style="cursor: pointer;" (click)="fileInput.click()">
+                    <p >+</p>
+                    <p>Thêm ảnh</p>
+                </div>
+            </div>
+            <input id="fileInput" #fileInput type='file' accept="image/*" (change)="onSelectFile($event)" multiple=""
+            style="visibility:hidden;">
+      </ng-container>
+    </nz-modal>
+
+
+

@@ -1,0 +1,285 @@
+<section id="multiple-column-form">
+    <div class="row match-height">
+        <div class="col-12">
+            <div class="col-12" style="padding-left: 0;">
+                <h2 class="content-header-titlet "> DANH SÁCH CÔNG VĂN </h2>
+            </div>
+            <div class="col-12" style="padding-left: 0;margin-bottom: 5px">
+                <nz-breadcrumb>
+                    <nz-breadcrumb-item>
+                        <a [routerLink]="['/']">Trang chủ</a>
+                    </nz-breadcrumb-item>
+                    <nz-breadcrumb-item>Công văn</nz-breadcrumb-item>
+                </nz-breadcrumb>
+            </div>
+
+            <core-card-snippet [snippetCode]="_snippetCodeMultiple">
+                <div class="row" style="margin: 5px 0;">
+                    <div class="col-md-9 row" style="align-items: center;margin:0">
+                        <h4 class="card-title" style="margin-bottom: 0">Quản lý công văn</h4>
+                    </div>
+                    <div class="col-md-3 row" style="align-items: center;justify-content: center;">                      
+                        <button (click)="showModalMiddle()" style="color:#0066b3;margin-right: 6px;" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Thêm mới" nzTooltipPlacement="top" nzTooltipColor="#3399ff"><i nz-icon nzType="plus" nzTheme="outline"></i></button>
+
+                        <button (click)="toggleSearchArea()" style="color:#0066b3;margin-right: 6px;" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Tìm kiếm" nzTooltipPlacement="top" nzTooltipColor="#3399ff"><i nz-icon nzType="search"></i></button>
+        
+                        <button (click)="clearMultipleRecord()" style="color:red;margin-right: 6px;" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Xóa nhiều" nzTooltipPlacement="top" nzTooltipColor="#3399ff"><i nz-icon nzType="delete" nzTheme="outline"></i></button>
+    
+                        <button (click)="exportFile()" style="color:#00cc00;margin-right: 6px;" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Export" nzTooltipPlacement="top" nzTooltipColor="#3399ff"><i nz-icon nzType="download" nzTheme="outline"></i></button>
+            
+                        <button (click)="showModalMiddleUpload()" style="color:#0066b3;margin-right: 6px;" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Import" nzTooltipPlacement="top" nzTooltipColor="#3399ff"><i nz-icon nzType="upload" nzTheme="outline"></i></button>
+
+                        <button (click)="back()" style="color:red;border: 1px solid red;margin-right: 6px;" nz-button nzType="default" nzShape="circle" nz-tooltip nzTooltipTitle="Quay lại" nzTooltipPlacement="top" nzTooltipColor="#3399ff"><i nz-icon nzType="rollback" nzTheme="outline"></i></button>                    
+                    </div>
+                </div>
+                <form *ngIf="isShowSearchArea" class="form" [formGroup]="docForm">
+                    <div class="card-body">
+                      <div class="card " style="padding: 10px;">
+                        <div class="row">
+                            <div class="col-md-4 col-12">
+                                <div class="form-group row" style="margin-bottom: 0;">
+                                    <div class="col-sm-3 col-form-label">
+                                        <label for="feedbackGroup">Số công văn</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input nz-input class="form-control" type="text" formControlName="numDocEn" placeholder="Số công văn"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <div class="form-group row" style="margin-bottom: 0;">
+                                    <div class="col-sm-3 col-form-label">
+                                        <label for="employee">Nhan đề</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input nz-input class="form-control" type="text" formControlName="titleEn" placeholder="Nhan đề"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <div class="form-group row" style="margin-bottom: 0;">
+                                    <div class="col-sm-3 col-form-label">
+                                        <label for="feedbackType">Nội dung</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <input nz-input class="form-control" type="text" formControlName="contentEn" placeholder="Nội dung"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-12">
+                                <div class="row">
+                                    <div class="col-sm-3 col-form-label">
+                                        <label>Khu vực</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <nz-select nzPlaceHolder="Khu vực" class="col-sm-12" nzShowSearch nzAllowClear formControlName="center">
+                                            <nz-option *ngFor="let item of listCenter" nzLabel={{item.name}} nzValue={{item.id}}></nz-option>
+                                        </nz-select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-12">
+                                <div class="form-group row" id="checkbox-elements-wrap">
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input type="checkbox" formControlName="utSearch"/>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label>Ưu tiên</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input type="checkbox" formControlName="cvCham"/>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label>CV chậm</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input type="checkbox" formControlName="cvNoiBo"/>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label>CV nội bộ</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <input type="checkbox" formControlName="iso"/>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label>ISO</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-12">
+                            </div>
+
+                            <div class="col-md-4 col-12">
+                                <div class="row">
+                                    <div class="col-sm-3 col-form-label">
+                                        <label>Từ ngày</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <nz-date-picker nzShowTime nzFormat="dd-MM-yyyy HH:mm:ss"
+                                        (nzOnOk)="onOk($event)"
+                                        formControlName="fromDate"
+                                        class="col-sm-12 form-control"
+                                        ></nz-date-picker>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-12">
+                                <div class="row">
+                                    <div class="col-sm-3 col-form-label">
+                                        <label>Tới ngày</label>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <nz-date-picker nzShowTime nzFormat="dd-MM-yyyy HH:mm:ss"
+                                        formControlName="toDate"
+                                        class="col-sm-12 form-control"
+                                        ></nz-date-picker>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-12 row" style="justify-content: center;">
+                                <div class="col-md-12 row">
+                                    <button nz-button nzType="default" type="button" (click)="doSearch()"
+                                        class="ant-btn-primary"
+                                        style="margin: 0;">Tìm kiếm
+                                    </button>
+                                    <button nz-button nzType="default" type="button" (click)="clearSearchInput()"
+                                        class="ant-btn-primary"
+                                        style="margin: 0 6px;">Xóa điều kiện
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                      </div>
+                    </div>
+                </form>
+            </core-card-snippet>
+        </div>
+    </div>
+</section>
+
+<div class="row" id="basic-table">
+    <div class="col-12">
+        <!-- <h5 class="card-title">THÔNG TIN CHI TIẾT</h5> -->
+        <div class="card">
+                <nz-table nzBordered #docTable [nzFrontPagination]="false" [nzShowPagination]="false" nzSize="small" [nzScroll]="{ y: '240px' }" nzShowSizeChanger [nzData]="listOfCurrentPageData" nzShowSizeChange >
+                    <thead>
+                        <tr>
+                            <th nzWidth="50px" class="text-center blue ant-table-cell">STT</th>
+                            <th nzWidth="50px" [(nzChecked)]="checked"
+                            [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)" class="text-center blue ant-table-cell"></th>
+                            <th nzWidth="120px" class="text-center blue ant-table-cell">Số công văn</th>
+                            <th nzWidth="180px" class="text-center blue ant-table-cell">Tiêu đề</th>
+                            <th nzWidth="120px" class="text-center blue ant-table-cell">Ngày tạo</th>
+                            <th nzWidth="130px" class="text-center blue ant-table-cell">Ngày áp dụng</th>
+                            <th nzWidth="180px" class="text-center blue ant-table-cell">Nội dung</th>
+                            <th nzWidth="110px" class="text-center blue ant-table-cell">Loại CV</th>
+                            <th nzWidth="130px" class="text-center blue ant-table-cell">Người thực hiện</th>
+                            <th nzWidth="100px" class="text-center blue ant-table-cell">Khu vực</th>
+                            <th nzWidth="100px" class="text-center blue ant-table-cell">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of docTable.data;let i=index" >
+                            <td nzWidth="50px" style="text-align: center;">{{(currentPage-1)*10 + i + 1}}</td>
+                            <td nzWidth="50px" [nzChecked]="setOfCheckedId.has(data.id)" (nzCheckedChange)="onItemChecked(data.id, $event)"></td>
+                            <td nzWidth="120px" style="text-align: center;">{{data.numDocEn}}</td>
+                            <td nzWidth="180px" style="max-width: 200px">{{data.titleEn}}</td>
+                            <td nzWidth="120px" style="text-align: center;">{{data.createdTime | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                            <td nzWidth="130px" style="text-align: center;">{{data.beginPublish | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                            <td nzWidth="180px">{{data.contentEn}}</td>
+                            <td nzWidth="110px"></td>
+                            <td nzWidth="130px" style="max-width: 120px;text-align: center;">{{data.createdBy}}</td>
+                            <td nzWidth="100px" style="text-align: center;">{{data.centerName}}</td>
+                            <td style="text-align: center">
+                                <a style="color: #9b7a67" class="pointer mr-50" data-toggle="tooltip" data-placement="top" title="Quản lý tin liên quan">
+                                    <i nz-icon nzType="file-text" nzTheme="outline"></i>
+                                </a>
+
+                                <a style="color: #00cc00" class="pointer mr-50" (click)="editDocOfficalDispatch(data.id);showModalMiddleUpdate(data.id)" data-toggle="tooltip" data-placement="top" title="Chỉnh sửa">
+                                    <i nz-icon nzType="edit" nzTheme="outline"></i>
+                                </a>
+
+                                <a style="color: red" class="pointer mr-50" (click)="deleteDocOfficalDispatch(data.id)" data-toggle="tooltip" data-placement="top" title="Xóa">
+                                    <i nz-icon nzType="close-circle" nzTheme="outline"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </nz-table>
+            
+                <br>
+                <nz-pagination style="margin-bottom: 15px;display: flex;justify-content: flex-end;" [nzPageIndex]=currentPage [nzSize]="'small'" [nzTotal]=totalResult (nzPageIndexChange)="doShow($event)" nzShowQuickJumper></nz-pagination>
+        </div>
+    </div>
+</div>
+
+<nz-modal
+      [(nzVisible)]="isVisibleMiddle"
+      nzTitle="THÊM MỚI CÔNG VĂN"
+      nzCentered
+      nzWidth="900px"
+      (nzOnCancel)="handleCancelMiddle()"
+      (nzOnOk)="handleOkMiddle()"
+      [nzContent]="nzModalContent"
+      [nzFooter]="null"
+    >
+      <ng-template #nzModalContent>
+        <app-add-doc-offical-dispatch (disableModalAdd)="handleCancelMiddle($event)"></app-add-doc-offical-dispatch>
+      </ng-template>
+</nz-modal>
+
+<nz-modal
+      [(nzVisible)]="isVisibleMiddleUpdate"
+      nzTitle="CẬP NHẬT CÔNG VĂN"
+      nzCentered
+      nzWidth="900px"
+      (nzOnCancel)="handleCancelMiddleUpdate()"
+      (nzOnOk)="handleOkMiddleUpdate()"
+      [nzContent]="nzModalUpdate"
+      [nzFooter]="null"
+    >
+      <ng-template #nzModalUpdate>
+        <app-edit-doc-offical-dispatch (hiddenModalUpdate)="handleCancelMiddleUpdate($event)"></app-edit-doc-offical-dispatch>
+      </ng-template>
+</nz-modal>
+
+<nz-modal
+      [(nzVisible)]="isVisibleMiddleUpload"
+      nzTitle="UPLOAD FILE CÔNG VĂN"
+      nzCentered
+      nzWidth="900px"
+      (nzOnCancel)="handleCancelMiddleUpload()"
+      (nzOnOk)="handleOkMiddleUpload()"
+      [nzContent]="nzModalUpload"
+      [nzFooter]="null"
+    >
+      <ng-template #nzModalUpload>
+        <app-upload-doc-offical-dispatch></app-upload-doc-offical-dispatch>
+      </ng-template>
+</nz-modal>
+
