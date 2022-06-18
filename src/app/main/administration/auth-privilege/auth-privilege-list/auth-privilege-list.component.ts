@@ -27,8 +27,6 @@ export class AuthPrivilegeListComponent implements OnInit {
     Swal.showLoading();
     this.menuService.getAllMenuPublished().then(
       async response => {
-        console.log('==========>')
-        console.log(response)
         if (response.code == 0) {
           this.allMenu = response.content
           Swal.close()

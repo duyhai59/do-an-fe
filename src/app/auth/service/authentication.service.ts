@@ -233,11 +233,38 @@ export class AuthenticationService {
 
   checkCall = false
   menuTest: CoreMenu[];
+  menu: CoreMenu[];
+
   getMenus() {
-    var roleId = this.tokenStorage.getUserRole()
+    // this.menu = [
+    //   {
+    //     id: 'customer-info',
+    //     type: 'section',
+    //     title: 'Tra cứu Thông tin Khách hàng',
+    //     translate: 'Tra cứu Thông tin Khách hàng',
+    //     icon: 'bar-chart-2',
+    //     children: [
+    //       {
+    //         id: 'customer-service-history',
+    //         title: 'Tra cứu thông tin thuê bao',
+    //         translate: 'Tra cứu thông tin thuê bao',
+    //         icon: 'map',
+    //         type: 'item',
+    //         url: 'customer-info-subcribe'
+    //       },
+    //       {
+    //         id: 'customer-service-history',
+    //         title: 'Tra cứu lịch sử sử dụng dịch vụ số',
+    //         translate: 'Tra cứu lịch sử sử dụng dịch vụ số',
+    //         icon: 'map',
+    //         type: 'item',
+    //         url: 'customer-service-history'
+    //       }
+    //     ]
+    //   }
+    // ]
+    var roleId = this.tokenStorage.getUserRole();
     this.menuService.getAllMenuPublished().then(response => {
-      console.log('abbbbbb');
-      console.log('res',response);
       if (response.code == 0) {
         this.menuTest = response.content
         localStorage.removeItem("cskh-menu")
@@ -250,21 +277,6 @@ export class AuthenticationService {
     })
     this.checkCall = true
   }
-  // getMenus() {
-  //   this.menuService.getAllMenuPublished().then(response => {
-  //     if (response.code == 0) {
-  //       this.menuTest = response.content
-  //       localStorage.removeItem("cskh-menu")
-  //       localStorage.setItem("cskh-menu", JSON.stringify(this.menuTest))
-  //       // Required reload page after login, because can't call Request to server to get Menu before Login in
-  //       // console.log(this.menuTest)
-  //       location.reload()
-  //       // Bo sung them loop menu cap 4 tu day(Neu co)
-  //     } else
-  //       Swal.fire('Cannot get Menus data');
-  //   })
-  //   this.checkCall = true
-  // }
 
   getMenus1() {
     var loginId = this.tokenStorage.getUserLoginId()
